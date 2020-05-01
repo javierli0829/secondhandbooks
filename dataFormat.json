@@ -1,0 +1,46 @@
+{
+  "Books": [
+    {
+      "id": 0,
+      "catogory": "Comic",
+      "name": "BookName",
+      "author": "BookAuthor",
+      "description": "BookDescription",
+      "postedTime": 1586937016359,
+      "owner": "BookOwner",
+      "matched": false,
+      "peopleInterested": [
+        {
+          "username": "Javierli"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "catogory": "Comic",
+      "name": "BookName",
+      "author": "BookAuthor",
+      "description": "BookDescription",
+      "postedTime": 1586937016359,
+      "owner": "Javierli",
+      "matched": false,
+      "peopleInterested": []
+    }
+  ],
+  "Users": [
+    {
+      "username": "Javierli",
+      "password": "12345",
+      "booksOwned": [
+        {
+          "bookid": 1
+        }
+      ],
+      "bookInterested": [
+        {
+          "bookid": 0
+        }
+      ]
+    }
+  ]
+}
