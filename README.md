@@ -1,10 +1,48 @@
 # The usage of backend API:
 
-In the directory backend, run the following:<br />
+Go to the project root directory, run the following:<br />
 
+`cd backend`<br />
 `python manage.py runserver`<br />
 
-Then go to http://localhost:8000<br /><br />
+There are many ways to use this API, as long as you can send and receive JSON data following HTTP RESTful standard. 
+
+## You can use our browsable API
+open http://localhost:8000<br /><br />
+
+Note: this browsable API can only handle GET and POST requests. <br />
+
+Example usage: <br />
+
+### 1. View all books in the database (GET)
+In your browser address bar, type http://localhost:8000/book/ <br /><br />
+
+### 2. Post a new book (POST)
+step 1: In your browser address bar, type http://localhost:8000/book/ <br /><br />
+step 2: Simply use the form on the web page to submit a new book <br />
+Note: The id of the book is automatically generated<br />
+
+### 3. Get a book by id (GET)
+In your browser address bar, type http://localhost:8000/book/&ltid&gt <br /><br />
+
+### 4. Get a book by name (GET)
+In your browser address bar, type http://localhost:8000/book/?name=&ltbookname&gt <br /><br />
+You can also get a book by author, category and other fields in the same manner.<br />
+
+### 5. Search a book by keywords in the description (GET)
+For example, if you want to search a book whose description contains 'science', please go http://localhost:8000/book/ and click the 'Filters' icon on the page. Then use the search function. <br />
+
+## If you want to update and delete data, you can use other ways to send http requests from the frontend
+
+### 6. Delete a book (DELETE)
+For example. you can issue a DELETE request to the following url
+http://127.0.0.1:8000/book/?name=&ltbookname&gt <br /><br />
+
+### 7. When a new user become interested in a book  (PATCH)
+In this case, you should send a PATCH request to update the 'peopleInterested' field of the book.
+step 1: Get the book's 'peopleInterested' that you will update. For example, the current list is [1,2] <br /><br />
+step 2: Issue a PATCH request with the updated list. For example, you want to add a new user to book 1 whose ID is 3, then issue: http PATCH http://127.0.0.1:8000/book/1/ peopleInterested:='[1,2,3]' <br />
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
