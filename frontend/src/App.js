@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import { Button } from 'reactstrap';
 
 function App() {
   return (
