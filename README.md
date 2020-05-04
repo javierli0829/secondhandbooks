@@ -23,7 +23,7 @@ step 2: Simply use the form on the web page to submit a new book <br />
 Note: The id of the book is automatically generated, so you don't need to create it<br /><br />
 
 ### 3. Get a book by id (GET)
-In your browser address bar, type http://localhost:8000/book/&ltid&gt <br /><br />
+In your browser address bar, type http://localhost:8000/book/id <br /><br />
 
 ### 4. Get a book by name (GET)
 In your browser address bar, type http://localhost:8000/book/?name=bookname <br />
@@ -35,11 +35,11 @@ For example, if you want to search a book whose description contains 'science', 
 ## If you want to update and delete data, you can use other ways to send http requests from the :
 
 ### 6. Delete a book (DELETE)
-For example. you can issue a DELETE request to the following url
+For example, you can issue a DELETE request to the following url
 http://127.0.0.1:8000/book/?name=bookname <br /><br />
 
 ### 7. When a new user become interested in a book  (PATCH)
-In this case, you should send a PATCH request to update the 'peopleInterested' field of the book.
+In this case, you should send a PATCH request to update the 'peopleInterested' field of the book. <br />
 step 1: Get the book's 'peopleInterested' that you will update. For example, the current list is [1,2] <br />
 step 2: Issue a PATCH request with the updated list. For example, you want to add a new user to book 1 whose ID is 3, then issue: http PATCH http://127.0.0.1:8000/book/1/ peopleInterested:='[1,2,3]' <br /><br />
 
