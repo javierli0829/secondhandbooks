@@ -135,3 +135,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'epiphanyandy@yahoo.com' 
 EMAIL_HOST_PASSWORD = 'ymazobepbxdsjbwt'  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CORS_ORIGIN_ALLOW_ALL = True
