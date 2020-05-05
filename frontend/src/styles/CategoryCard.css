@@ -1,0 +1,11 @@
+.cardTitle {
+  color: black;
+  font-size: medium;
+  text-align: left;
+}
+
+.cardText{
+  color: black;
+  font-size: small;
+  text-align: left;
+}
