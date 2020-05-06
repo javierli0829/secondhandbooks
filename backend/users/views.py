@@ -11,5 +11,5 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filterset_fields = ['id','username', 'email']
-    http_method_names = ['get', 'head']
+  #  http_method_names = ['get', 'head']
     
