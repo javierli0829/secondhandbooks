@@ -1,6 +1,9 @@
 from django.db import models
 from datetime import datetime
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
+
+class CustomUserManager(UserManager):
+    pass
 
 class User(AbstractUser):
     """
@@ -9,7 +12,6 @@ class User(AbstractUser):
     username
     email
     """
-    password = models.CharField("password",max_length=20)
     image = models.ImageField(upload_to="users/", null=True, blank=True, verbose_name="image")
  
     class Meta(AbstractUser.Meta):
