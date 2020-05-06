@@ -1,13 +1,12 @@
 import React from 'react';
-import './App.css';
-import CategoryCard from './components/CatogoryCard'
-import BigBlock from './components/BigBlock';
+import '../styles/Home.css';
+import CategoryCard from '../components/CatogoryCard'
+import BigBlock from '../components/BigBlock';
 import { Container, Row, Col, Button } from 'reactstrap';
 
 function Home() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="Home">
         <Container>
             <BigBlock/>
             <Button color="secondary" size="lg" block>Upload My Book</Button>
@@ -35,7 +34,6 @@ function Home() {
           </Row>
           <hr/>
         </Container>
-      </header>
     </div>
   );
 }

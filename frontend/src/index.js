@@ -5,12 +5,23 @@ import App from './App';
 import Header from './components/Header';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Header />
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Header />
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      {/* <Header /> */}
+      <App />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

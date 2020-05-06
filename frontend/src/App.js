@@ -1,43 +1,18 @@
-import React from 'react';
-import './App.css';
-import CategoryCard from './components/CatogoryCard'
-import BigBlock from './components/BigBlock';
-import { Container, Row, Col, Button } from 'reactstrap';
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Container>
-            <BigBlock/>
-            <Button color="secondary" size="lg" block>Upload My Book</Button>
-            <hr/>
-          <Row>
-            <Col>
-              <CategoryCard title="One" />
-            </Col>
-            <Col>
-              <CategoryCard title="Two" />
-            </Col>
-            <Col>
-              <CategoryCard title="Three" />
-            </Col>
-          </Row>
-          <hr/>
-          <Row>
-            <Col>
-              <CategoryCard title="Four" />
-            </Col>
-            <Col>
-              <CategoryCard title="Five" />
-            </Col>
-            <Col> </Col>
-          </Row>
-          <hr/>
-        </Container>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Header/>
+        {/* The corresponding component will show here if the current URL matches the path */}
+        <Route path="/" exact component={Home} />
+      </div>
+    );
+  }
 }
 
 export default App;
