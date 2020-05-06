@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Header from './components/Header';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch } from 'react-router-dom';
@@ -18,7 +17,6 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      {/* <Header /> */}
       <App />
     </Switch>
   </BrowserRouter>,

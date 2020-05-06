@@ -5,15 +5,6 @@ import {
 } from 'reactstrap';
 import '../styles/CategoryCard.css';
 
-function reqOnload(){
-  const data = JSON.parse(this.responseText);
-  console.log(data);
-}
-
-function reqError (err) {
-  console.log('error', err);
-}
-
 function fetchClick(){
   fetch('http://127.0.0.1:8000/user/', {})
   .then((response) => {

@@ -10,6 +10,7 @@ class App extends Component {
         <Header/>
         {/* The corresponding component will show here if the current URL matches the path */}
         <Route path="/" exact component={Home} />
+
       </div>
     );
   }
