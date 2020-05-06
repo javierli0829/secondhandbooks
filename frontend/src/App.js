@@ -11,6 +11,7 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 // store.dispatch(login({userId: 1, userName: 'Javier'}));
+console.log(store.getState());
 
 class App extends Component {
   render() {
