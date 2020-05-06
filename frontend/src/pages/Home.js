@@ -6,7 +6,7 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import UploadForm from '../components/UploadForm';
 
 function openForm() {
-  document.getElementById("myForm").style.display = "block";
+  document.getElementById("uploadForm").style.display = "block";
   document.getElementById("uploadFormMask").style.display = "block";
 
 }

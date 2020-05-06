@@ -14,14 +14,14 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import '../styles/Header.css';
-import { login } from '../actions/users';
+// import { login } from '../actions/users';
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  props.dispatch(login({userId: 1, userName: 'Javier'}));
+  // props.dispatch(login({userId: 1, userName: 'Javier'}));
 
   return (
     <div className="header">
@@ -53,7 +53,7 @@ const Header = (props) => {
               </UncontrolledDropdown> 
               :
               <NavItem>
-                <NavLink href="/quickMatch/">Login</NavLink>
+                <NavLink href="/login">Login</NavLink>
               </NavItem>}
 
           </Nav>
