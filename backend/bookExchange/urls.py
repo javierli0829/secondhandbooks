@@ -18,6 +18,7 @@ from django.urls import include, path
 from rest_framework import routers
 from users.views import UserViewSet
 from books.views import BookViewSet
+from chat.views import chat
 from django.views.static import serve
 from bookExchange.settings import MEDIA_ROOT
 
@@ -27,6 +28,7 @@ router.register(r'book', BookViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('chat', chat, name='chat-url'),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),
