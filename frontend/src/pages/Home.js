@@ -19,24 +19,26 @@ function Home() {
           <hr/>
         <Row>
           <Col>
-            <CategoryCard title="One" />
+            <CategoryCard title="Literature & Ficton" />
           </Col>
           <Col>
-            <CategoryCard title="Two" />
+            <CategoryCard title="Comic Book" />
           </Col>
           <Col>
-            <CategoryCard title="Three" />
+            <CategoryCard title="Magazine" />
           </Col>
         </Row>
         <hr/>
         <Row>
           <Col>
-            <CategoryCard title="Four" />
+            <CategoryCard title="Biography & Memoir" />
           </Col>
           <Col>
-            <CategoryCard title="Five" />
+            <CategoryCard title="Textbook & Reference Book" />
           </Col>
-          <Col> </Col>
+          <Col>
+            <CategoryCard title="Cookbook" />
+          </Col>
         </Row>
         <hr/>
       </Container>

@@ -10,24 +10,33 @@
 
 /* The popup form - hidden by default */
 .uploadFormPopup {
+  
   font-size: medium;
   background-color: #282c34;
-  margin: 10rem 25% 0;
+  margin: 5% 25% 0;
   display: none;
   position: fixed;
   width: 50%;
-  text-align: center;
+  height: 75%;
+  overflow-y: scroll;
   z-index: 9;
   opacity: 0.95;
 }
 
-/* Add styles to the form container */
-.uploadFormContainer {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+.uploadFormTitle {
+  margin: 1rem 0 0;
 }
 
-.btn {
+.formGroup {
+  text-align: left;
+  padding: 1rem 2rem 0;
+}
+
+#descriptionInput {
+  resize: none;
+  height: 100px;
+}
+
+.uploadFormBtn {
   margin: 0 1rem 1rem;
 }
