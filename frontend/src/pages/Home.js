@@ -8,6 +8,7 @@ import UploadForm from '../components/UploadForm';
 function openForm() {
   document.getElementById("myForm").style.display = "block";
   document.getElementById("uploadFormMask").style.display = "block";
+
 }
 
 function Home() {
@@ -19,25 +20,25 @@ function Home() {
           <hr/>
         <Row>
           <Col>
-            <CategoryCard title="Literature & Ficton" />
+            <CategoryCard title="Literature & Ficton" to="literatureAndFicton"/>
           </Col>
           <Col>
-            <CategoryCard title="Comic Book" />
+            <CategoryCard title="Comic Book" to="comicBook"/>
           </Col>
           <Col>
-            <CategoryCard title="Magazine" />
+            <CategoryCard title="Magazine" to="magazine"/>
           </Col>
         </Row>
         <hr/>
         <Row>
           <Col>
-            <CategoryCard title="Biography & Memoir" />
+            <CategoryCard title="Biography & Memoir" to="biographyAndMemoir"/>
           </Col>
           <Col>
-            <CategoryCard title="Textbook & Reference Book" />
+            <CategoryCard title="Textbook & Reference Book" to="textbookAndReferenceBook"/>
           </Col>
           <Col>
-            <CategoryCard title="Cookbook" />
+            <CategoryCard title="Cookbook" to="cookbook"/>
           </Col>
         </Row>
         <hr/>

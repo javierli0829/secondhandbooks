@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/UploadForm.css';
 
 function closeForm() {
+  document.getElementById("myForm").scrollTop = 0;
   document.getElementById("myForm").style.display = "none";
   document.getElementById("uploadFormMask").style.display = "none";
 }

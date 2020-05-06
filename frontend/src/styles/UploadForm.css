@@ -10,14 +10,13 @@
 
 /* The popup form - hidden by default */
 .uploadFormPopup {
-  
   font-size: medium;
   background-color: #282c34;
   margin: 5% 25% 0;
   display: none;
   position: fixed;
   width: 50%;
-  height: 75%;
+  height: 80%;
   overflow-y: scroll;
   z-index: 9;
   opacity: 0.95;
