@@ -4,7 +4,7 @@ import CategoryCard from './components/CatogoryCard'
 import BigBlock from './components/BigBlock';
 import { Container, Row, Col, Button } from 'reactstrap';
 
-function App() {
+function Home() {
   return (
     <div className="App">
       <header className="App-header">
@@ -40,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
