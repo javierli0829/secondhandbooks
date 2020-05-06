@@ -1,3 +1,10 @@
+# 06/05/2020 Update: Add chatroom function
+### Please install some package:
+`$ brew install redis`
+`$ brew services start redis`
+`$ pip install -r requirements.txt`
+### The chatroom use websocket to build persistant connection
+
 # The usage of backend API:
 
 Go to the project root directory, run the following:<br />
