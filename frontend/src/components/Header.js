@@ -14,14 +14,14 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import '../styles/Header.css';
-// import { login } from '../actions/users';
+import { logout } from '../actions/users';
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  // props.dispatch(login({userId: 1, userName: 'Javier'}));
+  const { handleLogout } = props;
 
   return (
     <div className="header">
@@ -46,8 +46,8 @@ const Header = (props) => {
                     Option 2
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
+                  <DropdownItem onClick={handleLogout}>
+                    Logout
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown> 
@@ -70,4 +70,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLogout: () => dispatch(logout()),
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -10,6 +10,11 @@ export default (state = usersDefaultState, action) => {
         userId: action.userId,
         userName: action.userName
       };
+    case 'LOGOUT': 
+      return {
+        userId: undefined,
+        userName: 'user'
+      }
     default:
       return state;
   }
