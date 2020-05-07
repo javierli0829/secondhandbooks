@@ -3,15 +3,15 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/UploadForm.css';
 
 function closeForm() {
-  document.getElementById("myForm").scrollTop = 0;
-  document.getElementById("myForm").style.display = "none";
+  document.getElementById("uploadForm").scrollTop = 0;
+  document.getElementById("uploadForm").style.display = "none";
   document.getElementById("uploadFormMask").style.display = "none";
 }
 
 const UploadForm = (props) => {
   return (
     <div id="uploadFormMask">
-      <div className="uploadFormPopup" id="myForm">
+      <div className="uploadFormPopup" id="uploadForm">
         <Form>
           <h1 className="uploadFormTitle">Upload My Book</h1>
           <FormGroup className="formGroup">

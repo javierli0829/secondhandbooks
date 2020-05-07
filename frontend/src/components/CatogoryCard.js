@@ -5,20 +5,6 @@ import {
 } from 'reactstrap';
 import '../styles/CategoryCard.css';
 
-// function fetchClick(){
-//   fetch('http://127.0.0.1:8000/user/', {})
-//   .then((response) => {
-   
-//     console.log(response);
-    
-//     return response.json(); 
-//   }).then((data) => {
-//   	console.log(data);
-//   }).catch((err) => {
-//     console.log('err:', err);
-// });
-// }
-
 const CatogoryCard = (props) => {
   return (
     <div>
@@ -32,6 +18,5 @@ const CatogoryCard = (props) => {
     </div>
   );
 };
-
 
 export default CatogoryCard;

@@ -1,0 +1,16 @@
+.Login{
+  padding: 5rem 25%;
+}
+
+.formGroup {
+  text-align: left;
+  padding: 1rem 2rem 0;
+}
+
+.loginFormTitle {
+  padding: 0 2rem 0;
+}
+
+.uploadFormBtn {
+  margin: 1rem 2rem 0;
+}

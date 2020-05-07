@@ -12,12 +12,16 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import '../styles/Header.css';
+import { logout } from '../actions/users';
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const { handleLogout } = props;
 
   return (
     <div className="header">
@@ -29,23 +33,29 @@ const Header = (props) => {
             <NavItem>
               <NavLink href="/quickMatch/">Quick Match</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            {props.userId !== undefined ? 
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  {props.userName}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    Option 1
+                  </DropdownItem>
+                  <DropdownItem>
+                    Option 2
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={handleLogout}>
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown> 
+              :
+              <NavItem>
+                <NavLink href="/login">Login</NavLink>
+              </NavItem>}
+
           </Nav>
         </Collapse>
       </Navbar>
@@ -53,4 +63,18 @@ const Header = (props) => {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    userId: state.users.userId,
+    userName: state.users.userName
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLogout: () => dispatch(logout()),
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
