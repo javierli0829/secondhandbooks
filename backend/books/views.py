@@ -4,8 +4,27 @@ from rest_framework import viewsets, filters
 from .serializers import BookSerializer
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
+import json
+from django.http import HttpResponse
 
 User = get_user_model()
+
+def match(request,person,book):
+    us = User.objects.get(pk=person)
+    bk = Book.objects.get(pk=book)
+    ow = bk.owner
+    mybooks = set(us.booksOwned.all())
+    owInterested = set(ow.bookInterested.all())
+    matched = mybooks & owInterested
+    matchedResult = []
+    for b in matched:
+        if not b.matched:
+            matchedResult.append(b.id)
+    response_data = {}
+    response_data['matchedBooks'] = list(matchedResult)
+    response_data['booksOwner'] = ow.username
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
 
 class BookViewSet(viewsets.ModelViewSet):
     """
