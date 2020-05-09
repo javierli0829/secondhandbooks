@@ -1,5 +1,5 @@
 # 06/05/2020 Update: Add match function
-For example, if user with id 'personId' is interested in a book with 'bookId'
+User with id 'personId' is interested in a book with 'bookId' <br />
 request url: http://127.0.0.1:8000/personId/bookId<br />
 
 For example, user 1 has book 1,2,3 and interested in book 4; user 2 has book 4 and interested in books 1,3,5;<br />
