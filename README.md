@@ -1,3 +1,11 @@
+# 06/05/2020 Update: Add match function
+For example, if user with id 'personId' is interested in a book with 'bookId'
+request url: http://127.0.0.1:8000/personId/bookId<br />
+response content: {<br />
+    "booksOwner": book owner's username,<br />
+    "matchedBooks": a list of bookId<br />
+}<br />
+
 # 06/05/2020 Update: Add chatroom function
 ### Please install some package:
 `$ brew install redis`<br />
