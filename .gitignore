@@ -28,3 +28,4 @@ backend/venv
 backend/env
 
 *.pyc
+db.sqlite3
