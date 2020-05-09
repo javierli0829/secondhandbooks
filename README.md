@@ -1,10 +1,14 @@
 # 06/05/2020 Update: Add match function
 For example, if user with id 'personId' is interested in a book with 'bookId'
 request url: http://127.0.0.1:8000/personId/bookId<br />
+
+For example, user 1 has book 1,2,3 and interested in book 4; user 2 has book 4 and interested in books 1,3,5;<br />
+request url: http://127.0.0.1:8000/1/<br />
 response content: {<br />
-    "booksOwner": book owner's username,<br />
-    "matchedBooks": a list of bookId<br />
+    "booksOwner": 2 <br />
+    "matchedBooks": [1,3] <br />
 }<br />
+
 
 # 06/05/2020 Update: Add chatroom function
 ### Please install some package:
