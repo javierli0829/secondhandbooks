@@ -1,4 +1,9 @@
-# 06/05/2020 Update: Add match function
+# 10/05/2020 Update: Add celery to send email asynchronously
+start command in another shell: 
+<br />
+$ celery -A bookExchange worker -l info
+
+# 09/05/2020 Update: Add match function
 User with id 'personId' is interested in a book with 'bookId' <br />
 request url: http://127.0.0.1:8000/personId/bookId<br />
 

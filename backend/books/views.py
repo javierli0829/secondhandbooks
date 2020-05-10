@@ -6,8 +6,14 @@ from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 import json
 from django.http import HttpResponse
+from celery import task
 
 User = get_user_model()
+
+@task
+def asyncEmail(receiver,content):
+    send_mail('Notification from Secondhandbook', content, 'epiphanyandy@yahoo.com',
+            [receiver], fail_silently=False)
 
 def match(request,person,book):
     us = User.objects.get(pk=person)
@@ -50,7 +56,6 @@ class BookViewSet(viewsets.ModelViewSet):
             emailContent += ' is marked interested by a new user: '
             emailContent += newPeople.username
             emailContent += '.' 
-              
-            send_mail('Notification from Secondhandbook', emailContent, 'epiphanyandy@yahoo.com',
-            [bookOwner.email], fail_silently=False)
+            asyncEmail.delay(bookOwner.email,emailContent)
+            
         return super().partial_update(request, pk)
