@@ -7,10 +7,8 @@ import QuickMatch from './pages/QuickMatch';
 import BookList from './pages/BookList';
 import Login from './pages/Login';
 import configureStore from './store/configureStore';
-// import { login } from './actions/users'; 
 
 const store = configureStore();
-// store.dispatch(login({userId: 1, userName: 'Javier'}));
 console.log(store.getState());
 
 class App extends Component {

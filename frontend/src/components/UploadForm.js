@@ -66,7 +66,6 @@ class UploadForm extends Component {
   }
 
   handleCategoryChange(e) {
-    console.log(e.target.value);
     this.setState({
       category: e.target.value,
     });
@@ -74,9 +73,12 @@ class UploadForm extends Component {
 
   handleFileChange(e) {
     const reader = new FileReader();
-    this.setState({
-      selectedFile: reader.readAsDataURL(e.target.files[0]),
-    });
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = () => {
+      this.setState({
+        selectedFile: reader.result
+      });
+    }
   }
 
   handleAuthorChange(e) {
