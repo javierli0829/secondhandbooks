@@ -20,25 +20,25 @@ class Home extends Component {
             <hr/>
           <Row>
             <Col>
-              <CategoryCard title="Literature & Ficton" to="literatureAndFicton"/>
+              <CategoryCard title="Literature & Ficton" to="1"/>
             </Col>
             <Col>
-              <CategoryCard title="Comic Book" to="comicBook"/>
+              <CategoryCard title="Comic Book" to="2"/>
             </Col>
             <Col>
-              <CategoryCard title="Magazine" to="magazine"/>
+              <CategoryCard title="Magazine" to="3"/>
             </Col>
           </Row>
           <hr/>
           <Row>
             <Col>
-              <CategoryCard title="Biography & Memoir" to="biographyAndMemoir"/>
+              <CategoryCard title="Biography & Memoir" to="4"/>
             </Col>
             <Col>
-              <CategoryCard title="Textbook & Reference Book" to="textbookAndReferenceBook"/>
+              <CategoryCard title="Textbook & Reference Book" to="5"/>
             </Col>
             <Col>
-              <CategoryCard title="Cookbook" to="cookbook"/>
+              <CategoryCard title="Cookbook" to="6"/>
             </Col>
           </Row>
           <hr/>

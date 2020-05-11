@@ -4,33 +4,31 @@ import CategoryCard from '../components/CatogoryCard'
 import { Container, Row, Col } from 'reactstrap';
 
 class BookList extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      bookList: []
+    };
+  }
+
+  componentWillMount(){
+    let search = window.location.search;
+    let category = new URLSearchParams(search).get('category');
+    console.log(category);
+    fetch('http://127.0.0.1:8000/book/?category=' + category, {})
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+    }).catch((err) => {
+      console.log('err', err);
+    });
+  }
   render(){
     return (
       <div className="BookList">
         <Container>
-          <Row>
-            <Col>
-              <CategoryCard title="Literature & Ficton" />
-            </Col>
-            <Col>
-              <CategoryCard title="Comic Book" />
-            </Col>
-            <Col>
-              <CategoryCard title="Magazine" />
-            </Col>
-          </Row>
-          <hr/>
-          <Row>
-            <Col>
-              <CategoryCard title="Biography & Memoir" />
-            </Col>
-            <Col>
-              <CategoryCard title="Textbook & Reference Book" />
-            </Col>
-            <Col>
-              <CategoryCard title="Cookbook" />
-            </Col>
-          </Row>
           <hr/>
         </Container>
       </div>

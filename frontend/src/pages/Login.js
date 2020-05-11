@@ -23,7 +23,7 @@ class Login extends Component {
             <Label for="password">Password</Label>
             <Input type="password" name="password" id="passwordInput" />
           </FormGroup>
-          <Button onClick={this.handleLogin} className="uploadFormBtn">Login</Button>
+          <Button onClick={this.handleLogin} className="LoginFormBtn">Login</Button>
         </Form>
       </div>
     );
