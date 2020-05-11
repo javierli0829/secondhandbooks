@@ -21,11 +21,15 @@ class BookList extends Component {
       return response.json();
     }).then((data) => {
       console.log(data);
+      this.setState({
+        bookList: data
+      })
     }).catch((err) => {
       console.log('err', err);
     });
   }
   render(){
+    console.log(this.state);
     return (
       <div className="BookList">
         <Container>
