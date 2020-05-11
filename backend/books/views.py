@@ -38,10 +38,10 @@ class BookViewSet(viewsets.ModelViewSet):
     """
     queryset = Book.objects.all().order_by('-postedTime')
     serializer_class = BookSerializer
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+  #  filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     filterset_fields = ['id', 'category', 'name', 'author', 'description',
         'postedTime','owner','matched']
-    search_fields = ('description',)
+  #  search_fields = ('description',)
    
     def partial_update(self, request, pk=None):
         book = Book.objects.get(id=pk)
