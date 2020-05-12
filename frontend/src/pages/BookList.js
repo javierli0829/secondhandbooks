@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 import BookCard from '../components/BookCard';
 import '../styles/BookList.css';
+import { setBookCategoryList } from '../actions/books';
 
 class BookList extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      bookList: [],
-      bookListLength: 0
-    };
+    this.handleFetchBookList = props.handleFetchBookList;
+    this.bookList = props.bookList;
   }
 
   componentWillMount(){
@@ -21,11 +21,7 @@ class BookList extends Component {
       console.log(response);
       return response.json();
     }).then((data) => {
-      console.log(data);
-      this.setState({
-        bookList: data,
-        bookListLength: data.length
-      })
+      this.handleFetchBookList(data);
     }).catch((err) => {
       console.log('err', err);
     });
@@ -37,31 +33,20 @@ class BookList extends Component {
       <div className="BookList">
         <Container>
           {
-          this.state.bookList.map((book, key) => {
-            console.log(book);
-            if(key % 3 === 0){
-              return (
-                <Col key={key}>
+          this.props.bookList.map((book, key) => {
+            return (
+              <Row key={key}>
+                <Col>
                   <BookCard 
                     title={book.name}
                     category={book.category}
                     author={book.author}
                     description={book.description}
-                    postedTime={book.postedTime} />
+                    postedTime={book.postedTime}
+                    image={book.image} />
                 </Col>
-              );
-            }else{
-              return (
-                <Col key={key}>
-                  <BookCard 
-                    title={book.name}
-                    category={book.category}
-                    author={book.author}
-                    description={book.description}
-                    postedTime={book.postedTime} />
-                </Col>
-              );
-            }
+              </Row>
+            );
           })}
           <hr/>
         </Container>
@@ -70,4 +55,18 @@ class BookList extends Component {
   }
 }
 
-export default BookList;
+const mapStateToProps = (state) => {
+  return {
+    bookList: state.books.bookList
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleFetchBookList: (data) => {
+      dispatch(setBookCategoryList({bookList: data}));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);

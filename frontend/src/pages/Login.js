@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/Login.css';
 import { login } from '../actions/users';
@@ -23,16 +22,12 @@ class Login extends Component {
             <Label for="password">Password</Label>
             <Input type="password" name="password" id="passwordInput" />
           </FormGroup>
-          <Button onClick={this.handleLogin} className="LoginFormBtn">Login</Button>
+          <Button onClick={this.handleLogin} className="loginFormBtn">Login</Button>
         </Form>
       </div>
     );
   }
 }
-
-Login.propTypes = {
-  handleLogin: PropTypes.func
-};
 
 const mapDispatchToProps = (dispatch) => {
   return {

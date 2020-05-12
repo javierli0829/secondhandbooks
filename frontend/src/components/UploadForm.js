@@ -69,15 +69,6 @@ class UploadForm extends Component {
   }
 
   handleFileChange(e) {
-    // const reader = new FileReader();
-    // if(e.target.files[0]){
-    //   reader.readAsDataURL(e.target.files[0]);
-    //   reader.onloadend = () => {
-    //     this.setState({
-    //       selectedFile: reader.result
-    //     });
-    //   }
-    // }
     this.setState({
       selectedFile: e.target.files[0]
     })
