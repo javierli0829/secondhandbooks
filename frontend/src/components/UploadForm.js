@@ -33,23 +33,19 @@ class UploadForm extends Component {
     console.log(category);
     let author = this.state.author;
     let description = this.state.description;
-    let image = this.state.selectedFile;
-    console.log("img: " + image);
+    let image = new File([this.state.selectedFile], 'image.jpg');
+
+    var formData = new FormData();
+    formData.append('owner', 1);
+    formData.append('name', bookName);
+    formData.append('category', category);
+    formData.append('author', author);
+    formData.append('description', description);
+    formData.append('image', image);
+
     fetch('http://127.0.0.1:8000/book/', {
       method: 'POST',
-      body: JSON.stringify(
-        {
-          owner: 1,
-          name: bookName,
-          category,
-          author,
-          description,
-          // image
-        }
-      ),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
+      body: formData,
     })
     .then((res) => {
       res.json();
@@ -57,6 +53,7 @@ class UploadForm extends Component {
     })
     .catch(error => console.log(error))
     .then(response => console.log('Success:', response));
+
   }
 
   handleBookNameChange(e) {
@@ -72,15 +69,18 @@ class UploadForm extends Component {
   }
 
   handleFileChange(e) {
-    const reader = new FileReader();
-    if(e.target.files[0]){
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onloadend = () => {
-        this.setState({
-          selectedFile: reader.result
-        });
-      }
-    }
+    // const reader = new FileReader();
+    // if(e.target.files[0]){
+    //   reader.readAsDataURL(e.target.files[0]);
+    //   reader.onloadend = () => {
+    //     this.setState({
+    //       selectedFile: reader.result
+    //     });
+    //   }
+    // }
+    this.setState({
+      selectedFile: e.target.files[0]
+    })
   }
 
   handleAuthorChange(e) {
