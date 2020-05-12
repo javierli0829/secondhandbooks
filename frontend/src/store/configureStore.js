@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import usersReducer from '../reducers/users';
+import booksReducer from '../reducers/books';
 
 const loadState = () => {
   try {
@@ -27,7 +28,8 @@ const persistedState = loadState();
 export default () => {
   const store = createStore(
     combineReducers({
-      users: usersReducer
+      users: usersReducer,
+      books: booksReducer
     }),
     persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -35,7 +37,8 @@ export default () => {
 
   store.subscribe(() => {
     saveState({
-      users: store.getState().users
+      users: store.getState().users,
+      books: store.getState().books
     });
   });
   return store;

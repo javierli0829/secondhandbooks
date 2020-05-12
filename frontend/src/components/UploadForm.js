@@ -33,8 +33,8 @@ class UploadForm extends Component {
     console.log(category);
     let author = this.state.author;
     let description = this.state.description;
-    let imagePath = this.state.selectedFile;
-    console.log("img: " + imagePath);
+    let image = this.state.selectedFile;
+    console.log("img: " + image);
     fetch('http://127.0.0.1:8000/book/', {
       method: 'POST',
       body: JSON.stringify(
@@ -44,7 +44,7 @@ class UploadForm extends Component {
           category,
           author,
           description,
-          // image: imagePath
+          // image
         }
       ),
       headers: new Headers({
@@ -66,7 +66,6 @@ class UploadForm extends Component {
   }
 
   handleCategoryChange(e) {
-    console.log(e.target.value);
     this.setState({
       category: e.target.value,
     });
@@ -74,9 +73,14 @@ class UploadForm extends Component {
 
   handleFileChange(e) {
     const reader = new FileReader();
-    this.setState({
-      selectedFile: reader.readAsDataURL(e.target.files[0]),
-    });
+    if(e.target.files[0]){
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onloadend = () => {
+        this.setState({
+          selectedFile: reader.result
+        });
+      }
+    }
   }
 
   handleAuthorChange(e) {

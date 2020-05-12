@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import '../styles/BookList.css';
-import CategoryCard from '../components/CatogoryCard'
 import { Container, Row, Col } from 'reactstrap';
+import BookCard from '../components/BookCard';
+import '../styles/BookList.css';
 
 class BookList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      bookList: []
+      bookList: [],
+      bookListLength: 0
     };
   }
 
@@ -21,14 +22,47 @@ class BookList extends Component {
       return response.json();
     }).then((data) => {
       console.log(data);
+      this.setState({
+        bookList: data,
+        bookListLength: data.length
+      })
     }).catch((err) => {
       console.log('err', err);
     });
   }
+
   render(){
+    console.log(this.state);
     return (
       <div className="BookList">
         <Container>
+          {
+          this.state.bookList.map((book, key) => {
+            console.log(book);
+            if(key % 3 === 0){
+              return (
+                <Col key={key}>
+                  <BookCard 
+                    title={book.name}
+                    category={book.category}
+                    author={book.author}
+                    description={book.description}
+                    postedTime={book.postedTime} />
+                </Col>
+              );
+            }else{
+              return (
+                <Col key={key}>
+                  <BookCard 
+                    title={book.name}
+                    category={book.category}
+                    author={book.author}
+                    description={book.description}
+                    postedTime={book.postedTime} />
+                </Col>
+              );
+            }
+          })}
           <hr/>
         </Container>
       </div>
