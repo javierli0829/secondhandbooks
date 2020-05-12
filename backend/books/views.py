@@ -44,18 +44,18 @@ class BookViewSet(viewsets.ModelViewSet):
   #  search_fields = ('description',)
    
     def partial_update(self, request, pk=None):
-        book = Book.objects.get(id=pk)
-        bookOwner = book.owner
-        oldPeopleInterested = set(book.peopleInterested.all())
-        newPeopleInterested = set(request.data['peopleInterested'])
-        if newPeopleInterested and oldPeopleInterested != newPeopleInterested:
-            newPeopleId = newPeopleInterested.difference(oldPeopleInterested).pop()
-            newPeople = User.objects.get(id=newPeopleId)
-            emailContent = 'Hi, user '+bookOwner.username+', Your book: '
-            emailContent += book.name 
-            emailContent += ' is marked interested by a new user: '
-            emailContent += newPeople.username
-            emailContent += '.' 
-            asyncEmail.delay(bookOwner.email,emailContent)
-            
+        if 'peopleInterested' in request.data:
+            book = Book.objects.get(id=pk)
+            bookOwner = book.owner
+            oldPeopleInterested = set(book.peopleInterested.all())
+            newPeopleInterested = set(request.data['peopleInterested'])
+            if newPeopleInterested and oldPeopleInterested != newPeopleInterested:
+                newPeopleId = newPeopleInterested.difference(oldPeopleInterested).pop()
+                newPeople = User.objects.get(id=newPeopleId)
+                emailContent = 'Hi, user '+bookOwner.username+', Your book: '
+                emailContent += book.name 
+                emailContent += ' is marked interested by a new user: '
+                emailContent += newPeople.username
+                emailContent += '.' 
+                asyncEmail.delay(bookOwner.email,emailContent)  
         return super().partial_update(request, pk)
