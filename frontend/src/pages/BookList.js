@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col } from 'reactstrap';
+import { Container, Col, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 import BookCard from '../components/BookCard';
 import '../styles/BookList.css';
@@ -10,6 +10,10 @@ class BookList extends Component {
     super(props);
     this.handleFetchBookList = props.handleFetchBookList;
     this.bookList = props.bookList;
+    this.listToRows = this.listToRows.bind(this);
+    this.state = {
+      booksInRows: []
+    }
   }
 
   componentWillMount(){
@@ -22,9 +26,26 @@ class BookList extends Component {
       return response.json();
     }).then((data) => {
       this.handleFetchBookList(data);
+      this.listToRows();
     }).catch((err) => {
       console.log('err', err);
     });
+  }
+  
+  listToRows(){
+    var toReturn = [];
+    var rows = [];
+    for(var i = 0; i < this.props.bookList.length; i++){
+      if((i + 1) % 3 === 0 || i + 1 === this.props.bookList.length){
+        rows.push(this.props.bookList[i]);
+        toReturn.push(rows);
+        console.log(toReturn);
+        rows = [];
+      }else{
+        rows.push(this.props.bookList[i]);
+      }
+    }
+    this.setState({booksInRows: toReturn});
   }
 
   render(){
@@ -32,7 +53,7 @@ class BookList extends Component {
     return (
       <div className="BookList">
         <Container>
-          {
+          {/* {
           this.props.bookList.map((book, key) => {
             return (
                 <Col key={key} >
@@ -46,7 +67,31 @@ class BookList extends Component {
                 </Col>
             );
           })}
-          <hr/>
+          <hr/> */}
+          {
+          this.state.booksInRows.map((books, key_out) => {
+            console.log(books);
+            return (
+              <div>
+                <Row key={key_out}>
+                  {books.map((book, key_in) => {
+                    return (
+                    <Col xs="6" sm="4" key={key_in}>
+                      <BookCard 
+                        title={book.name}
+                        category={book.category}
+                        author={book.author}
+                        description={book.description}
+                        postedTime={book.postedTime}
+                        image={book.image} />
+                    </Col>)
+                  })}
+                </Row>
+                <hr/>
+              </div>
+            )
+          })}
+          
         </Container>
       </div>
     );
