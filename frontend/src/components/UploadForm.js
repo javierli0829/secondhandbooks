@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 import '../styles/UploadForm.css';
 
 function closeForm() {
@@ -18,6 +19,7 @@ class UploadForm extends Component {
       author: null,
       description: null
     };
+    this.user = props.user;
     this.postBook = this.postBook.bind(this);
     this.handleBookNameChange = this.handleBookNameChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -90,6 +92,7 @@ class UploadForm extends Component {
     return (
       <div id="uploadFormMask">
         <div className="uploadFormPopup" id="uploadForm">
+          {this.user !== undefined ? 
           <Form onSubmit={this.postBook}>
             <h1 className="uploadFormTitle">Upload My Book</h1>
             <FormGroup className="formGroup">
@@ -121,11 +124,22 @@ class UploadForm extends Component {
             </FormGroup>
             <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
             <Button className="uploadFormBtn">Submit</Button>
-          </Form>
+          </Form> : 
+          <Form>
+            <h1 className="uploadFormTitle">Please Login to Upload a Book</h1>
+            <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
+          </Form>}
+
         </div>
       </div>
     );
   }
 }
 
-export default UploadForm;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+export default connect(mapStateToProps)(UploadForm);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 import '../styles/Login.css';
 import { login } from '../actions/user';
 
@@ -12,18 +12,20 @@ class Login extends Component {
   render(){
     return (
       <div className="Login">
-        <Form>
-          <h1 className="loginFormTitle">Login</h1>
-          <FormGroup className="formGroup">
-            <Label for="account">Account</Label>
-            <Input type="text" name="account" id="accountInput" placeholder="Account" />
-          </FormGroup>
-          <FormGroup className="formGroup">
-            <Label for="password">Password</Label>
-            <Input type="password" name="password" id="passwordInput" />
-          </FormGroup>
-          <Button onClick={this.handleLogin} className="loginFormBtn">Login</Button>
-        </Form>
+        <Container>
+          <Form>
+            <h1 className="loginFormTitle">Login</h1>
+            <FormGroup className="formGroup">
+              <Label for="account">Account</Label>
+              <Input type="text" name="account" id="accountInput" placeholder="Account" />
+            </FormGroup>
+            <FormGroup className="formGroup">
+              <Label for="password">Password</Label>
+              <Input type="password" name="password" id="passwordInput" />
+            </FormGroup>
+            <Button onClick={this.handleLogin} className="loginFormBtn">Login</Button>
+          </Form>
+        </Container>
       </div>
     );
   }

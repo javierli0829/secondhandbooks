@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import QuickMatch from './pages/QuickMatch';
 import BookList from './pages/BookList';
 import Login from './pages/Login';
+import Profile from './pages/Profile'
 import configureStore from './store/configureStore';
 
 const store = configureStore();
@@ -22,6 +23,7 @@ class App extends Component {
           <Route path="/quickMatch" exact component={QuickMatch} />
           <Route path="/bookList" component={BookList} />
           <Route path="/login" exact component={Login} />
+          <Route path="/profile" exact component={Profile}/>
         </Router>
       </Provider>
     );

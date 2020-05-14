@@ -36,7 +36,7 @@ const Header = (props) => {
                   {props.user.username}
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
+                  <DropdownItem href="/profile/">
                     Profile
                   </DropdownItem>
                   <DropdownItem href="/quickMatch/">
@@ -52,7 +52,6 @@ const Header = (props) => {
               <NavItem>
                 <NavLink href="/login">Login</NavLink>
               </NavItem>}
-
           </Nav>
         </Collapse>
       </Navbar>
@@ -68,7 +67,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleLogout: () => dispatch(logout()),
+    handleLogout: () => {
+      dispatch(logout());
+      window.location.reload();
+    },
     dispatch
   }
 }
