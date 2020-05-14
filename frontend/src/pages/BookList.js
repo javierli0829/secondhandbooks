@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import BookCard from '../components/BookCard';
 import '../styles/BookList.css';

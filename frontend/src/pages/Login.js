@@ -7,25 +7,76 @@ import { login } from '../actions/user';
 class Login extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      hasAccount: true
+    };
     this.handleLogin = props.handleLogin;
+    this.toggleHasAccount = this.toggleHasAccount.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
+
+  toggleHasAccount(){
+    this.setState(prevState => ({
+      hasAccount: !prevState.hasAccount
+    }));
+  }
+
+  handleSignUp(){
+    alert("signup");
+  }
+
   render(){
     return (
       <div className="Login">
-        <Container>
-          <Form>
-            <h1 className="loginFormTitle">Login</h1>
-            <FormGroup className="formGroup">
-              <Label for="account">Account</Label>
-              <Input type="text" name="account" id="accountInput" placeholder="Account" />
+        {this.state.hasAccount ? 
+          <Container>
+            <Form>
+              <h1 className="loginFormTitle">Login</h1>
+              <FormGroup className="formGroup">
+                <Label for="account">Account</Label>
+                <Input type="text" name="account" id="accountInput" placeholder="Account" />
+              </FormGroup>
+              <FormGroup className="formGroup">
+                <Label for="password">Password</Label>
+                <Input type="password" name="password" id="passwordInput" />
+              </FormGroup>
+              <div className="btnContainer">
+                <div className="toBeCentered">
+                  <Button onClick={this.handleLogin} className="loginFormBtn">Login</Button>
+                </div>
+              </div>
+              <a href="#" onClick={this.toggleHasAccount} className="fakeLink">Don't have an account?</a>
+            </Form>
+          </Container>
+          :
+          <Container>
+            <Form>
+              <h1 className="loginFormTitle">Sign Up</h1>
+              <FormGroup className="formGroup">
+                <Label for="account">Account</Label>
+                <Input type="text" name="account" id="accountInput" placeholder="Account" />
+              </FormGroup>
+              <FormGroup className="formGroup">
+                <Label for="password">Password</Label>
+                <Input type="password" name="password" id="passwordInput" />
+              </FormGroup>
+              <FormGroup className="formGroup">
+                <Label for="account">Email</Label>
+                <Input type="text" name="email" id="emailInput" placeholder="Email" />
+              </FormGroup>
+              <FormGroup className="formGroup">
+              <Label for="image">Profile Picture</Label>
+              <Input type="file" name="image" id="imageSelector" accept="image/*"/>
             </FormGroup>
-            <FormGroup className="formGroup">
-              <Label for="password">Password</Label>
-              <Input type="password" name="password" id="passwordInput" />
-            </FormGroup>
-            <Button onClick={this.handleLogin} className="loginFormBtn">Login</Button>
-          </Form>
-        </Container>
+              <div className="btnContainer">
+                <div className="toBeCentered">
+                  <Button onClick={this.handleSignUp} className="loginFormBtn">Sign Up</Button>
+                </div>
+              </div>
+              <a href="#" onClick={this.toggleHasAccount} className="fakeLink">Already have an account?</a>
+            </Form>
+          </Container>
+        }
       </div>
     );
   }

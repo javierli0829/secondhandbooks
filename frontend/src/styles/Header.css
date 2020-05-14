@@ -6,3 +6,7 @@
 .headerNavBar {
   margin-left: auto;
 }
+
+.headerUserIcon {
+  margin-right: 5px;
+}

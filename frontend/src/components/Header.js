@@ -13,6 +13,8 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import '../styles/Header.css';
 import { logout } from '../actions/user';
 
@@ -33,6 +35,7 @@ const Header = (props) => {
             {props.user !== undefined ? 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
+                  <FontAwesomeIcon className="headerUserIcon" icon={faUser}/>
                   {props.user.username}
                 </DropdownToggle>
                 <DropdownMenu right>
@@ -50,7 +53,7 @@ const Header = (props) => {
               </UncontrolledDropdown> 
               :
               <NavItem>
-                <NavLink href="/login">Login</NavLink>
+                <NavLink href="/login">Login / Sign up</NavLink>
               </NavItem>}
           </Nav>
         </Collapse>

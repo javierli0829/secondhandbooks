@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../styles/Profile.css';
 import { Container, Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 class Profile extends Component {
   constructor(props) {
@@ -13,7 +15,11 @@ class Profile extends Component {
     return (
       <div className="Profile">
         <Container>
-          <img className="profilePicture" src={this.user.image} alt={this.user.username}/>
+          {this.user.image !== null ?
+            <img className="profilePicture" src={this.user.image} alt={this.user.username}/>
+            :
+            <FontAwesomeIcon className="headerUserIcon fa-10x" icon={faUser}/>
+          }
           <hr/>
           <Row>
             <Col className="profileCard" sm="12" md={{ size: 6, offset: 3 }}>
