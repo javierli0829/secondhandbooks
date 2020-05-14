@@ -12,6 +12,7 @@ class Profile extends Component {
   }
 
   render() {
+    if(this.user === undefined) window.location.href = '/';
     return (
       <div className="Profile">
         <Container>

@@ -11,6 +11,7 @@ class Login extends Component {
       hasAccount: true
     };
     this.handleLogin = props.handleLogin;
+    this.user = props.user;
     this.toggleHasAccount = this.toggleHasAccount.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
   }
@@ -26,6 +27,7 @@ class Login extends Component {
   }
 
   render(){
+    if(this.user !== undefined) window.location.href = '/';
     return (
       <div className="Login">
         {this.state.hasAccount ? 
@@ -82,6 +84,12 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     handleLogin: () => {
@@ -113,4 +121,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
