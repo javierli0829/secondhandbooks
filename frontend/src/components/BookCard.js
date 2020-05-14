@@ -15,7 +15,7 @@ class BookCard extends Component {
     return (
       <div>
         <Card>
-          {this.props.image && <CardImg top width="50%" src={this.props.image} alt="Card image cap" />}
+          {this.props.image && <CardImg className="bookImage" top src={this.props.image} alt="Card image cap" />}
           <CardBody>
             <CardTitle className="cardTitle">Book name: {this.props.title}</CardTitle>
             <CardText className="cardText">Author: {this.props.author}</CardText>

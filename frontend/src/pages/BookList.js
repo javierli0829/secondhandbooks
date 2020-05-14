@@ -53,27 +53,10 @@ class BookList extends Component {
     return (
       <div className="BookList">
         <Container>
-          {/* {
-          this.props.bookList.map((book, key) => {
+          {this.state.booksInRows.map((books, key_out) => {
             return (
-                <Col key={key} >
-                  <BookCard 
-                    title={book.name}
-                    category={book.category}
-                    author={book.author}
-                    description={book.description}
-                    postedTime={book.postedTime}
-                    image={book.image} />
-                </Col>
-            );
-          })}
-          <hr/> */}
-          {
-          this.state.booksInRows.map((books, key_out) => {
-            console.log(books);
-            return (
-              <div>
-                <Row key={key_out}>
+              <div key={key_out}>
+                <Row>
                   {books.map((book, key_in) => {
                     return (
                     <Col xs="6" sm="4" key={key_in}>
