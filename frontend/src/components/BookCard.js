@@ -6,6 +6,10 @@ import {
 import { connect } from 'react-redux';
 import '../styles/BookCard.css';
 
+function viewClicked (){
+  alert("Implementing");
+}
+
 class BookCard extends Component {
   render(){
     return (
@@ -17,7 +21,7 @@ class BookCard extends Component {
             <CardText className="cardText">Author: {this.props.author}</CardText>
             <CardText className="cardText">Description: {this.props.description}</CardText>
             <CardText className="cardText">Posted Time: {this.props.postedTime}</CardText>
-            <Button className="viewButton" onClick={this.viewClicked}>View</Button>
+            <Button className="viewButton" onClick={viewClicked}>View</Button>
           </CardBody>
         </Card>
       </div>

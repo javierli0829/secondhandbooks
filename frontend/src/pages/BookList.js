@@ -35,8 +35,7 @@ class BookList extends Component {
           {
           this.props.bookList.map((book, key) => {
             return (
-              <Row key={key}>
-                <Col>
+                <Col key={key} >
                   <BookCard 
                     title={book.name}
                     category={book.category}
@@ -45,7 +44,6 @@ class BookList extends Component {
                     postedTime={book.postedTime}
                     image={book.image} />
                 </Col>
-              </Row>
             );
           })}
           <hr/>
