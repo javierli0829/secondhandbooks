@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import '../styles/Header.css';
-import { logout } from '../actions/users';
+import { logout } from '../actions/user';
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,21 +29,18 @@ const Header = (props) => {
         <NavbarBrand href="/">Second-hand Book Exchange</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/quickMatch/">Quick Match</NavLink>
-            </NavItem>
-            {props.userId !== undefined ? 
+          <Nav className="headerNavBar" navbar>
+            {props.user !== undefined ? 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  {props.userName}
+                  {props.user.username}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
+                    Profile
                   </DropdownItem>
-                  <DropdownItem>
-                    Option 2
+                  <DropdownItem href="/quickMatch/">
+                    QuickMatch
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={handleLogout}>
@@ -65,8 +62,7 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.users.userId,
-    userName: state.users.userName
+    user: state.user.user
   }
 }
 

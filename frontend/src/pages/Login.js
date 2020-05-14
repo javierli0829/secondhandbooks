@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/Login.css';
-import { login } from '../actions/users';
+import { login } from '../actions/user';
 
 class Login extends Component {
   constructor(props){
@@ -46,9 +46,7 @@ const mapDispatchToProps = (dispatch) => {
           alert("No user found.");
         }else{
           if(data[0].password === password){
-            console.log(data[0].id);
-            console.log(data[0].username);
-            dispatch(login({userId: data[0].id, userName: data[0].username}));
+            dispatch(login(data[0]));
             window.location.href = '/';
           }else{
             alert("Wrong password.");

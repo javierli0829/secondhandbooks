@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import usersReducer from '../reducers/users';
+import userReducer from '../reducers/user';
 import booksReducer from '../reducers/books';
 
 const loadState = () => {
@@ -28,7 +28,7 @@ const persistedState = loadState();
 export default () => {
   const store = createStore(
     combineReducers({
-      users: usersReducer,
+      user: userReducer,
       books: booksReducer
     }),
     persistedState,
@@ -37,7 +37,7 @@ export default () => {
 
   store.subscribe(() => {
     saveState({
-      users: store.getState().users,
+      user: store.getState().user,
       books: store.getState().books
     });
   });
