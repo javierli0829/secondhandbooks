@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 import '../styles/UploadForm.css';
 
 function closeForm() {
@@ -18,6 +19,7 @@ class UploadForm extends Component {
       author: null,
       description: null
     };
+    this.user = props.user;
     this.postBook = this.postBook.bind(this);
     this.handleBookNameChange = this.handleBookNameChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -30,33 +32,35 @@ class UploadForm extends Component {
 
     let bookName = this.state.bookName;
     let category = this.state.category;
-    console.log(category);
     let author = this.state.author;
     let description = this.state.description;
-    let image = this.state.selectedFile;
-    console.log("img: " + image);
+    let image;
+    // let image = new File([this.state.selectedFile], 'image.jpg');
+
+    var formData = new FormData();
+    if(this.state.selectedFile !== null){
+      image = new File([this.state.selectedFile], 'image.jpg');
+      formData.append('image', image);
+    }
+    formData.append('owner', this.user.id);
+    formData.append('name', bookName);
+    formData.append('category', category);
+    formData.append('author', author);
+    formData.append('description', description);
+    // formData.append('image', image);
+
     fetch('http://127.0.0.1:8000/book/', {
       method: 'POST',
-      body: JSON.stringify(
-        {
-          owner: 1,
-          name: bookName,
-          category,
-          author,
-          description,
-          // image
-        }
-      ),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
+      body: formData,
     })
     .then((res) => {
       res.json();
       closeForm();
+      alert("uploaded!");
     })
     .catch(error => console.log(error))
     .then(response => console.log('Success:', response));
+
   }
 
   handleBookNameChange(e) {
@@ -72,15 +76,9 @@ class UploadForm extends Component {
   }
 
   handleFileChange(e) {
-    const reader = new FileReader();
-    if(e.target.files[0]){
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onloadend = () => {
-        this.setState({
-          selectedFile: reader.result
-        });
-      }
-    }
+    this.setState({
+      selectedFile: e.target.files[0]
+    })
   }
 
   handleAuthorChange(e) {
@@ -99,6 +97,7 @@ class UploadForm extends Component {
     return (
       <div id="uploadFormMask">
         <div className="uploadFormPopup" id="uploadForm">
+          {this.user !== undefined ? 
           <Form onSubmit={this.postBook}>
             <h1 className="uploadFormTitle">Upload My Book</h1>
             <FormGroup className="formGroup">
@@ -130,11 +129,22 @@ class UploadForm extends Component {
             </FormGroup>
             <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
             <Button className="uploadFormBtn">Submit</Button>
-          </Form>
+          </Form> : 
+          <Form>
+            <h1 className="uploadFormTitle">Please Login to Upload a Book</h1>
+            <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
+          </Form>}
+
         </div>
       </div>
     );
   }
 }
 
-export default UploadForm;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+export default connect(mapStateToProps)(UploadForm);

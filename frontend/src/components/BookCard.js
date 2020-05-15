@@ -1,42 +1,27 @@
 import React, {Component} from 'react';
 import {
   Card, CardText, CardBody,
-  CardTitle, Button
+  CardTitle, Button, CardImg 
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import '../styles/BookCard.css';
-import { setBookInfo } from '../actions/books';
+
+function viewClicked (){
+  alert("Implementing");
+}
 
 class BookCard extends Component {
-  constructor(props){
-    super(props);
-    this.handleOpenBookCard = props.handleOpenBookCard;
-    this.viewClicked = this.viewClicked.bind(this);
-  }
-
-  viewClicked(){
-    console.log(this.props.title,
-      this.props.author,
-      this.props.category,
-      this.props.description,
-      this.props.postedTime);
-    this.handleOpenBookCard(
-      this.props.title,
-      this.props.author,
-      this.props.category,
-      this.props.description,
-      this.props.postedTime
-    );
-  }
-
   render(){
     return (
       <div>
         <Card>
+          {this.props.image && <CardImg className="bookImage" top src={this.props.image} alt="Card image cap" />}
           <CardBody>
-            <CardTitle className="cardTitle">{this.props.title}</CardTitle>
-            <CardText className="cardText">{this.props.description}</CardText>
-            <Button className="viewButton" onClick={this.viewClicked}>View</Button>
+            <CardTitle className="cardTitle">Book name: {this.props.title}</CardTitle>
+            <CardText className="cardText">Author: {this.props.author}</CardText>
+            <CardText className="cardText">Description: {this.props.description}</CardText>
+            <CardText className="cardText">Posted Time: {this.props.postedTime}</CardText>
+            <Button className="viewButton" onClick={viewClicked}>View</Button>
           </CardBody>
         </Card>
       </div>
@@ -44,26 +29,4 @@ class BookCard extends Component {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleOpenBookCard: (
-      name,
-      author,
-      category,
-      description,
-      postedTime
-    ) => {
-      dispatch(setBookInfo(
-        {
-          name,
-          author,
-          category,
-          description,
-          postedTime
-        }
-      ))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(BookCard);
+export default connect(null)(BookCard);

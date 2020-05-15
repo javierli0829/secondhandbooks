@@ -12,5 +12,18 @@
 }
 
 .loginFormBtn {
-  margin: 1rem 2rem 0;
+  width: 100px;
+}
+
+.btnConteiner {
+  width: 100%;
+}
+
+.toBeCentered {
+  width: 100px;
+  margin: 0 auto;
+}
+
+.fakeLink {
+  width: 200px
 }
