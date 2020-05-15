@@ -20,14 +20,16 @@ class BookList extends Component {
     let search = window.location.search;
     let category = new URLSearchParams(search).get('category');
     console.log(category);
-    fetch('http://127.0.0.1:8000/book/?category=' + category, {})
+    fetch('http://127.0.0.1:8000/book/?matched=false&category=' + category, {})
     .then((response) => {
       console.log(response);
       return response.json();
     }).then((data) => {
       this.handleFetchBookList(data);
+    }).then(() => {
       this.listToRows();
-    }).catch((err) => {
+    }
+    ).catch((err) => {
       console.log('err', err);
     });
   }
