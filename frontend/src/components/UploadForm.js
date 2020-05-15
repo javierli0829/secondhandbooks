@@ -32,18 +32,22 @@ class UploadForm extends Component {
 
     let bookName = this.state.bookName;
     let category = this.state.category;
-    console.log(category);
     let author = this.state.author;
     let description = this.state.description;
-    let image = new File([this.state.selectedFile], 'image.jpg');
+    let image;
+    // let image = new File([this.state.selectedFile], 'image.jpg');
 
     var formData = new FormData();
-    formData.append('owner', 1);
+    if(this.state.selectedFile !== null){
+      image = new File([this.state.selectedFile], 'image.jpg');
+      formData.append('image', image);
+    }
+    formData.append('owner', this.user.id);
     formData.append('name', bookName);
     formData.append('category', category);
     formData.append('author', author);
     formData.append('description', description);
-    formData.append('image', image);
+    // formData.append('image', image);
 
     fetch('http://127.0.0.1:8000/book/', {
       method: 'POST',
@@ -52,6 +56,7 @@ class UploadForm extends Component {
     .then((res) => {
       res.json();
       closeForm();
+      alert("uploaded!");
     })
     .catch(error => console.log(error))
     .then(response => console.log('Success:', response));
