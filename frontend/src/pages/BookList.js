@@ -12,11 +12,12 @@ class BookList extends Component {
   constructor(props){
     super(props);
     this.handleFetchBookList = props.handleFetchBookList;
-    this.bookList = props.bookList;
+    // this.bookList = props.bookList;
     this.listToRows = this.listToRows.bind(this);
     this.showTitle = this.showTitle.bind(this);
     this.state = {
       category: undefined,
+      bookList: [],
       booksInRows: [],
       key_id: props.key_id
     }
@@ -30,6 +31,7 @@ class BookList extends Component {
     .then((response) => {
       return response.json();
     }).then((data) => {
+      this.setState({bookList: data});
       this.handleFetchBookList(data);
     }).then(() => {
       this.listToRows();
@@ -42,13 +44,13 @@ class BookList extends Component {
   listToRows(){
     var toReturn = [];
     var rows = [];
-    for(var i = 0; i < this.props.bookList.length; i++){
-      if((i + 1) % 3 === 0 || i + 1 === this.props.bookList.length){
-        rows.push(this.props.bookList[i]);
+    for(var i = 0; i < this.state.bookList.length; i++){
+      if((i + 1) % 3 === 0 || i + 1 === this.state.bookList.length){
+        rows.push(this.state.bookList[i]);
         toReturn.push(rows);
         rows = [];
       }else{
-        rows.push(this.props.bookList[i]);
+        rows.push(this.state.bookList[i]);
       }
     }
     this.setState({booksInRows: toReturn});
@@ -121,15 +123,9 @@ class BookList extends Component {
             )
           })}
         </Container>
-        <BookPopup bookId={this.state.key_id}/>
+        <BookPopup bookId={this.state.key_id} bookList={this.state.bookList}/>
       </div>
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    bookList: state.books.bookList
   }
 }
 
@@ -141,4 +137,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookList);
+export default connect(NULL, mapDispatchToProps)(BookList);

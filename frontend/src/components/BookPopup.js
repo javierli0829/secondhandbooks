@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, CardImg, CardText } from 'reactstrap';
-import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import '../styles/BookPopup.css';
@@ -14,15 +13,15 @@ function closeBookPopup() {
 class BookPopup extends Component {
   constructor(props) {
     super(props);
-    this.bookList = props.bookList;
     this.state = {
+      bookList: props.bookList,
       bookId: props.bookId
     }
     this.findBook = this.findBook.bind(this);
   }
 
   findBook(){
-    return this.bookList.find(book => {
+    return this.state.bookList.find(book => {
       console.log(book.id + ' vs ' + this.state.bookId);
       return book.id === this.state.bookId;
     });
@@ -37,7 +36,7 @@ class BookPopup extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ bookId: nextProps.bookId});
+    this.setState({ bookId: nextProps.bookId, bookList: nextProps.bookList });
   }
 
   showCategory(cat){
@@ -60,7 +59,7 @@ class BookPopup extends Component {
   }
 
   render() {
-    console.log('BookList: ' + this.bookList);
+    console.log('BookList: ' + this.state.bookList);
     console.log('book Id: ' + this.state.bookId);
     return (
       <div id="bookPopupMask">
@@ -92,10 +91,4 @@ class BookPopup extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    bookList: state.books.bookList
-  }
-}
-
-export default connect(mapStateToProps)(BookPopup);
+export default BookPopup;
