@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Jumbotron } from 'reactstrap';
+import { Container, Col, Row, Jumbotron, Spinner } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -12,14 +12,14 @@ class BookList extends Component {
   constructor(props){
     super(props);
     this.handleFetchBookList = props.handleFetchBookList;
-    // this.bookList = props.bookList;
     this.listToRows = this.listToRows.bind(this);
     this.showTitle = this.showTitle.bind(this);
     this.state = {
       category: undefined,
       bookList: [],
       booksInRows: [],
-      key_id: props.key_id
+      key_id: props.key_id,
+      loading: true
     }
   }
 
@@ -31,7 +31,7 @@ class BookList extends Component {
     .then((response) => {
       return response.json();
     }).then((data) => {
-      this.setState({bookList: data});
+      this.setState({ bookList: data, loading: false });
       this.handleFetchBookList(data);
     }).then(() => {
       this.listToRows();
@@ -84,6 +84,15 @@ class BookList extends Component {
   }
 
   render(){
+    if(this.state.loading){
+      return (
+        <div className="BookList">
+          <Container>
+            <Spinner color="dark" />
+          </Container>
+        </div>
+      )
+    }
     return (
       <div className="BookList">
         <Container>
@@ -137,4 +146,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(NULL, mapDispatchToProps)(BookList);
+export default connect(null, mapDispatchToProps)(BookList);

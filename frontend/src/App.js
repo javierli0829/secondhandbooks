@@ -8,6 +8,7 @@ import BookList from './pages/BookList';
 import Login from './pages/Login';
 import Profile from './pages/Profile'
 import configureStore from './store/configureStore';
+import './styles/App.css'
 
 const store = configureStore();
 console.log(store.getState());

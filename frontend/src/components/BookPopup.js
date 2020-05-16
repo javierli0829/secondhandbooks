@@ -22,7 +22,6 @@ class BookPopup extends Component {
 
   findBook(){
     return this.state.bookList.find(book => {
-      console.log(book.id + ' vs ' + this.state.bookId);
       return book.id === this.state.bookId;
     });
   }
@@ -33,6 +32,11 @@ class BookPopup extends Component {
     var month = time.getMonth() + 1;
     var year = time.getFullYear();
     return year + ' / ' + month + ' / ' + date;
+  }
+
+  handleInterested(){
+    
+    closeBookPopup();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,8 +63,6 @@ class BookPopup extends Component {
   }
 
   render() {
-    console.log('BookList: ' + this.state.bookList);
-    console.log('book Id: ' + this.state.bookId);
     return (
       <div id="bookPopupMask">
         <div id="bookPopup">
@@ -83,7 +85,7 @@ class BookPopup extends Component {
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
-          <Button className="bookPopupBtn" onClick={closeBookPopup}>Interested</Button>
+          <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>
         </div>
       </div>
 
