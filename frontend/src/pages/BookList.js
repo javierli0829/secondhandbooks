@@ -18,7 +18,7 @@ class BookList extends Component {
     this.state = {
       category: undefined,
       booksInRows: [],
-      key: undefined
+      key_id: props.key_id
     }
   }
 
@@ -39,7 +39,7 @@ class BookList extends Component {
       console.log('err', err);
     });
   }
-  
+
   listToRows(){
     var toReturn = [];
     var rows = [];
@@ -56,9 +56,11 @@ class BookList extends Component {
   }
 
   viewClicked (id){
-    this.setState({key: id})
-    document.getElementById("bookPopup").style.display = "block";
-    document.getElementById("bookPopupMask").style.display = "block";
+    this.setState({key_id: id}, () => {
+      console.log('view click: ' + this.state.key_id);
+      document.getElementById("bookPopup").style.display = "block";
+      document.getElementById("bookPopupMask").style.display = "block";
+    });
   }
 
   showTitle(){
@@ -87,7 +89,7 @@ class BookList extends Component {
           <div>
             <Jumbotron className="bigBlock">
               <h1 className="display-4">{this.showTitle()}</h1>
-              {this.state.booksInRows.length == 0 &&
+              {this.state.booksInRows.length === 0 &&
               <div>
                 <hr/>
                 <p className="lead">
@@ -120,7 +122,7 @@ class BookList extends Component {
             )
           })}
         </Container>
-        <BookPopup bookId={this.state.key}/>
+        <BookPopup bookId={this.state.key_id}/>
       </div>
     );
   }

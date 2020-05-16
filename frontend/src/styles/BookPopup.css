@@ -24,3 +24,23 @@
 .bookPopupBtn {
   margin: 0 1rem 1rem;
 }
+
+.bookTitleImg {
+  color: black;
+  text-align: center;
+  background-color: #e9ecef;
+  padding: 1rem 0 2rem 0;
+}
+
+.bookPopupImage {
+  border-style: solid;
+  padding-top: 32px;
+}
+
+.bookDetails {
+  border-style: solid;
+  text-align: left;
+  color: white;
+  padding: 1rem;
+  margin: 2rem 5% 2rem;
+}

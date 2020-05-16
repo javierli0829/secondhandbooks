@@ -22,7 +22,6 @@ class BookCard extends Component {
           <CardBody>
             <CardTitle className="cardTitle">Book name: {this.props.title}</CardTitle>
             <CardText className="cardText">Author: {this.props.author}</CardText>
-            <CardText className="cardText">Posted Time: {this.props.postedTime}</CardText>
             <Button className="viewButton" onClick={this.props.viewClicked}>View</Button>
           </CardBody>
         </Card>
