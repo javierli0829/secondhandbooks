@@ -1,0 +1,26 @@
+#bookPopupMask {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#bookPopup {
+  font-size: medium;
+  background-color: #282c34;
+  margin: 5% 25% 0;
+  display: none;
+  position: fixed;
+  width: 50%;
+  height: 80%;
+  overflow-y: scroll;
+  z-index: 9;
+  opacity: 0.95;
+}
+
+.bookPopupBtn {
+  margin: 0 1rem 1rem;
+}

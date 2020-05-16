@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Col, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 import BookCard from '../components/BookCard';
+import BookPopup from '../components/BookPopup';
 import '../styles/BookList.css';
 import { setBookCategoryList } from '../actions/books';
 
@@ -12,7 +13,8 @@ class BookList extends Component {
     this.bookList = props.bookList;
     this.listToRows = this.listToRows.bind(this);
     this.state = {
-      booksInRows: []
+      booksInRows: [],
+      key: undefined
     }
   }
 
@@ -41,7 +43,6 @@ class BookList extends Component {
       if((i + 1) % 3 === 0 || i + 1 === this.props.bookList.length){
         rows.push(this.props.bookList[i]);
         toReturn.push(rows);
-        console.log(toReturn);
         rows = [];
       }else{
         rows.push(this.props.bookList[i]);
@@ -50,8 +51,13 @@ class BookList extends Component {
     this.setState({booksInRows: toReturn});
   }
 
+  viewClicked (id){
+    this.setState({key: id})
+    document.getElementById("bookPopup").style.display = "block";
+    document.getElementById("bookPopupMask").style.display = "block";
+  }
+
   render(){
-    console.log(this.state);
     return (
       <div className="BookList">
         <Container>
@@ -68,7 +74,8 @@ class BookList extends Component {
                         author={book.author}
                         description={book.description}
                         postedTime={book.postedTime}
-                        image={book.image} />
+                        image={book.image}
+                        viewClicked={()=>this.viewClicked(book.id)} />
                     </Col>)
                   })}
                 </Row>
@@ -76,8 +83,8 @@ class BookList extends Component {
               </div>
             )
           })}
-          
         </Container>
+        <BookPopup bookId={this.state.key}/>
       </div>
     );
   }
