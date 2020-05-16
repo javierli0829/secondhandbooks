@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, CardTitle } from 'reactstrap';
+import { Container, Col, Row, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import BookCard from '../components/BookCard';
 import BookPopup from '../components/BookPopup';
 import '../styles/BookList.css';
@@ -14,6 +16,7 @@ class BookList extends Component {
     this.listToRows = this.listToRows.bind(this);
     this.showTitle = this.showTitle.bind(this);
     this.state = {
+      category: undefined,
       booksInRows: [],
       key: undefined
     }
@@ -22,6 +25,7 @@ class BookList extends Component {
   componentWillMount(){
     let search = window.location.search;
     let category = new URLSearchParams(search).get('category');
+    this.setState({category});
     fetch('http://127.0.0.1:8000/book/?matched=false&category=' + category, {})
     .then((response) => {
       console.log(response);
@@ -58,16 +62,42 @@ class BookList extends Component {
   }
 
   showTitle(){
-    let search = window.location.search;
-    return new URLSearchParams(search).get('title');
+    switch(this.state.category){
+      case '1':
+        return 'Literature & Ficton';
+      case '2':
+        return 'Comic Book';
+      case '3':
+        return 'Magazine';
+      case '4':
+        return 'Biography & Memoir';
+      case '5':
+        return 'Textbook & Reference Book';
+      case '6':
+        return 'Cookbook';
+      default:
+        return 'No Category Found';
+    }
   }
 
   render(){
     return (
       <div className="BookList">
         <Container>
-        <CardTitle className="cardTitle">{this.showTitle()}</CardTitle>
-          {this.state.booksInRows.map((books, key_out) => {
+          <div>
+            <Jumbotron className="bigBlock">
+              <h1 className="display-4">{this.showTitle()}</h1>
+              {this.state.booksInRows.length == 0 &&
+              <div>
+                <hr/>
+                <p className="lead">
+                  <FontAwesomeIcon color="black" icon={faSearch} /> No book is found in this category. 
+                  <a href="/"> Back to homepage.</a>
+                </p>
+              </div>}
+            </Jumbotron>
+          </div>
+          {this.state.booksInRows.length > 0 && this.state.booksInRows.map((books, key_out) => {
             return (
               <div key={key_out}>
                 <Row>

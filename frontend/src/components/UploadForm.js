@@ -56,11 +56,18 @@ class UploadForm extends Component {
     .then((res) => {
       res.json();
       closeForm();
+      this.setState({
+        bookName: null,
+        category: "1",
+        selectedFile: null,
+        author: null,
+        description: null
+      });
+      document.getElementById("postBookForm").reset();
       alert("uploaded!");
     })
     .catch(error => console.log(error))
     .then(response => console.log('Success:', response));
-
   }
 
   handleBookNameChange(e) {
@@ -98,7 +105,7 @@ class UploadForm extends Component {
       <div id="uploadFormMask">
         <div className="uploadFormPopup" id="uploadForm">
           {this.user !== undefined ? 
-          <Form onSubmit={this.postBook}>
+          <Form id="postBookForm" onSubmit={this.postBook}>
             <h1 className="uploadFormTitle">Upload My Book</h1>
             <FormGroup className="formGroup">
               <Label for="bookName">Book Name</Label>
