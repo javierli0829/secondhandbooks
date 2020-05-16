@@ -22,7 +22,7 @@ class BookCard extends Component {
           <CardBody>
             <CardTitle className="cardTitle">Book name: {this.props.title}</CardTitle>
             <CardText className="cardText">Author: {this.props.author}</CardText>
-            <Button className="viewButton" onClick={this.props.viewClicked}>View</Button>
+            <Button className="viewButton" onClick={this.props.viewClicked}>Details</Button>
           </CardBody>
         </Card>
       </div>

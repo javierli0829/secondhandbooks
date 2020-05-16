@@ -104,7 +104,6 @@ class UploadForm extends Component {
     return (
       <div id="uploadFormMask">
         <div className="uploadFormPopup" id="uploadForm">
-          {this.user !== undefined ? 
           <Form id="postBookForm" onSubmit={this.postBook}>
             <h1 className="uploadFormTitle">Upload My Book</h1>
             <FormGroup className="formGroup">
@@ -136,12 +135,7 @@ class UploadForm extends Component {
             </FormGroup>
             <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
             <Button className="uploadFormBtn">Submit</Button>
-          </Form> : 
-          <Form>
-            <h1 className="uploadFormTitle">Please Login to Upload a Book</h1>
-            <Button className="uploadFormBtn" onClick={closeForm}>Cancel</Button>
-          </Form>}
-
+          </Form>
         </div>
       </div>
     );

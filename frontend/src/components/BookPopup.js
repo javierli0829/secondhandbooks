@@ -22,7 +22,10 @@ class BookPopup extends Component {
   }
 
   findBook(){
-    return this.bookList.find(book => book.id === this.state.bookId);
+    return this.bookList.find(book => {
+      console.log(book.id + ' vs ' + this.state.bookId);
+      return book.id === this.state.bookId;
+    });
   }
 
   returnDate(){
@@ -57,6 +60,8 @@ class BookPopup extends Component {
   }
 
   render() {
+    console.log('BookList: ' + this.bookList);
+    console.log('book Id: ' + this.state.bookId);
     return (
       <div id="bookPopupMask">
         <div id="bookPopup">
@@ -79,6 +84,7 @@ class BookPopup extends Component {
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
+          <Button className="bookPopupBtn" onClick={closeBookPopup}>Interested</Button>
         </div>
       </div>
 

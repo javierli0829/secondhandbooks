@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/Home.css';
 import CategoryCard from '../components/CatogoryCard'
 import BigBlock from '../components/BigBlock';
+import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'reactstrap';
 import UploadForm from '../components/UploadForm';
 
@@ -11,12 +12,20 @@ function openForm() {
 }
 
 class Home extends Component {
+  constructor(props){
+    super(props);
+    this.user = props.user;
+  }
   render(){
     return (
       <div className="Home">
         <Container>
             <BigBlock/>
-            <Button onClick={openForm} color="secondary" size="lg" block>Upload My Book</Button>
+            {this.user !== undefined ? 
+              <Button onClick={openForm} color="secondary" size="lg" block>Upload My Book</Button>
+              :
+              <Button disabled color="secondary" size="lg" block>Please Login To Upload A Book</Button>
+            }
             <hr/>
           <Row>
             <Col>
@@ -49,4 +58,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+export default connect(mapStateToProps)(Home);
