@@ -63,12 +63,12 @@ class Profile extends Component {
             <Col className="profileCard" sm="12" md={{ size: 6, offset: 3 }}>
               <Card body>
                 <CardTitle className="profileCardTitle">{this.user.username}</CardTitle>
-                <CardText>Email</CardText>
+                <CardText><strong>Email</strong></CardText>
                 <ListGroup>
                   <ListGroupItem>{this.user.email}</ListGroupItem>
                 </ListGroup>
                 <hr/>
-                <CardText>My books</CardText>
+                <CardText><strong>My books</strong></CardText>
                 <ListGroup >
                   {this.state.bookList.map((book, key) => {
                     return (

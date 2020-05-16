@@ -6,7 +6,7 @@ const BigBlock = (props) => {
   return (
     <div>
       <Jumbotron className="bigBlock">
-        <h1 className="display-4">Green Booker</h1>
+        <h1 className="display-4">Green Book</h1>
         <hr/>
         <p className="lead">This is a second-hand book exchange platform. We aim at extending the life of each book.</p>
       </Jumbotron>

@@ -78,10 +78,10 @@ class BookPopup extends Component {
               </div>}
             </div>
             <div className="bookDetails">
-              <CardText>Author: {this.findBook().author}</CardText>
-              <CardText>Category: {this.showCategory(this.findBook().category)}</CardText>
-              <CardText>Description: {this.findBook().description}</CardText>
-              <CardText>postedTime: {this.returnDate()}</CardText>
+              <CardText><strong>Author: </strong>{this.findBook().author}</CardText>
+              <CardText><strong>Category: </strong>{this.showCategory(this.findBook().category)}</CardText>
+              <CardText><strong>Description: </strong>{this.findBook().description}</CardText>
+              <CardText><strong>postedTime: </strong>{this.returnDate()}</CardText>
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>

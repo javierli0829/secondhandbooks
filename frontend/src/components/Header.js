@@ -28,7 +28,7 @@ const Header = (props) => {
   return (
     <div className="header">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Green Booker</NavbarBrand>
+        <NavbarBrand href="/">Green Book</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="headerNavBar" navbar>
@@ -47,7 +47,7 @@ const Header = (props) => {
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={handleLogout}>
-                    Logout
+                    <strong>Logout</strong>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown> 
