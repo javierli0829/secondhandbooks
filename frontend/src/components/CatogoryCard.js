@@ -12,7 +12,7 @@ const CatogoryCard = (props) => {
         <CardBody>
           <CardTitle className="cardTitle">{props.title}</CardTitle>
           <CardText className="cardText">Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button className="viewButton" href={"/bookList?category=" + props.to}>View</Button>
+          <Button className="viewButton" href={"/bookList?category=" + props.to + "&title=" + props.title}>View</Button>
         </CardBody>
       </Card>
     </div>

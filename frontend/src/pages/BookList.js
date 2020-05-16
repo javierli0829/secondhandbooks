@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row } from 'reactstrap';
+import { Container, Col, Row, CardTitle } from 'reactstrap';
 import { connect } from 'react-redux';
 import BookCard from '../components/BookCard';
 import BookPopup from '../components/BookPopup';
@@ -12,6 +12,7 @@ class BookList extends Component {
     this.handleFetchBookList = props.handleFetchBookList;
     this.bookList = props.bookList;
     this.listToRows = this.listToRows.bind(this);
+    this.showTitle = this.showTitle.bind(this);
     this.state = {
       booksInRows: [],
       key: undefined
@@ -21,7 +22,6 @@ class BookList extends Component {
   componentWillMount(){
     let search = window.location.search;
     let category = new URLSearchParams(search).get('category');
-    console.log(category);
     fetch('http://127.0.0.1:8000/book/?matched=false&category=' + category, {})
     .then((response) => {
       console.log(response);
@@ -57,10 +57,16 @@ class BookList extends Component {
     document.getElementById("bookPopupMask").style.display = "block";
   }
 
+  showTitle(){
+    let search = window.location.search;
+    return new URLSearchParams(search).get('title');
+  }
+
   render(){
     return (
       <div className="BookList">
         <Container>
+        <CardTitle className="cardTitle">{this.showTitle()}</CardTitle>
           {this.state.booksInRows.map((books, key_out) => {
             return (
               <div key={key_out}>
