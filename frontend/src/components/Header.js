@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , Fragment} from 'react';
 import {
   Collapse,
   Navbar,
@@ -27,30 +27,32 @@ const Header = (props) => {
 
   return (
     <div className="header">
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Green Book</NavbarBrand>
+      <Navbar expand="md">
+        <NavbarBrand className="headerText" href="/">Green Book</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="headerNavBar" navbar>
             {props.user !== undefined ? 
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  <FontAwesomeIcon className="headerUserIcon" icon={faUser}/>
-                  {props.user.username}
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem href="/profile/">
-                    Profile
-                  </DropdownItem>
-                  <DropdownItem href="/quickMatch/">
-                    QuickMatch
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem onClick={handleLogout}>
-                    <strong>Logout</strong>
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> 
+              <Fragment>
+                <NavItem>
+                  <NavLink className="headerText" href="/quickMatch/">Quick Match</NavLink>
+                </NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle className="headerText" nav caret>
+                    <FontAwesomeIcon className="headerUserIcon" icon={faUser}/>
+                    {props.user.username}
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem href="/profile/">
+                      Profile
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={handleLogout}>
+                      <strong>Logout</strong>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown> 
+              </Fragment>
               :
               <NavItem>
                 <NavLink href="/login">Login / Sign up</NavLink>
