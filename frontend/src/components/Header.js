@@ -28,7 +28,7 @@ const Header = (props) => {
   return (
     <div className="header">
       <Navbar expand="md">
-        <NavbarBrand className="headerText" href="/">Green Book</NavbarBrand>
+        <NavbarBrand className="headerTitle" href="/">Green Book</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="headerNavBar" navbar>
@@ -55,7 +55,7 @@ const Header = (props) => {
               </Fragment>
               :
               <NavItem>
-                <NavLink href="/login">Login / Sign up</NavLink>
+                <NavLink className="headerText" href="/login">Login / Sign up</NavLink>
               </NavItem>}
           </Nav>
         </Collapse>

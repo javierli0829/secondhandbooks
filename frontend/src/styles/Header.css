@@ -23,3 +23,21 @@
   text-align: justify;
   color: #66B9BF;
 }
+
+.headerTitle {
+  border-style: solid;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: #07889B;
+  text-align: justify;
+  color: white;
+}
+
+.headerTitle:hover {
+  border-style: solid;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: #07889B;
+  text-align: justify;
+  color: white;
+}

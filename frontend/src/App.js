@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import QuickMatch from './pages/QuickMatch';
 import BookList from './pages/BookList';
@@ -26,6 +27,7 @@ class App extends Component {
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile}/>
         </Router>
+        <Footer />
       </Provider>
     );
   }
