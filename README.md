@@ -33,7 +33,7 @@ Go to the project root directory, run the following:<br />
 
 There are many ways to use this API, as long as you can send and receive JSON data following HTTP RESTful standard. 
 
-## You can use our browsable API:
+### You can use our browsable API:
 open http://localhost:8000<br />
 
 Note: this browsable API can only handle GET and POST requests. <br />
@@ -59,7 +59,7 @@ You can also get a book by author, category and other fields in the same manner.
 ### 5. Search a book by keywords in the description (GET)
 For example, if you want to search a book whose description contains 'science', please go http://localhost:8000/book/ and click the 'Filters' icon on the page. Then use the search function. <br /><br />
 
-## If you want to update and delete data, you can use other ways to send http requests from the frontend:
+### If you want to update and delete data, you can use other ways to send http requests from the frontend:
 
 ### 6. Delete a book (DELETE)
 For example, you can issue a DELETE request to the following url
@@ -76,6 +76,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Frontend
 
+This project is built based on `create-react-app`, so most of the command follow its rules.
 
 ## Available Scripts
 
