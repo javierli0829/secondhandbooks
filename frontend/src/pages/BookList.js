@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Jumbotron, Spinner } from 'reactstrap';
+import {
+  Container, Col, Row, Jumbotron, Spinner,
+  Form, FormGroup, Input, Button
+} from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -14,12 +17,16 @@ class BookList extends Component {
     this.handleFetchBookList = props.handleFetchBookList;
     this.listToRows = this.listToRows.bind(this);
     this.showTitle = this.showTitle.bind(this);
+    this.searchBook = this.searchBook.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
     this.state = {
       category: undefined,
       bookList: [],
+      searchResult: [],
       booksInRows: [],
       key_id: props.key_id,
-      loading: true
+      loading: true,
+      search: undefined
     }
   }
 
@@ -41,19 +48,33 @@ class BookList extends Component {
     });
   }
 
-  listToRows(){
+  listToRows(mode){
     var toReturn = [];
     var rows = [];
-    for(var i = 0; i < this.state.bookList.length; i++){
-      if((i + 1) % 3 === 0 || i + 1 === this.state.bookList.length){
-        rows.push(this.state.bookList[i]);
-        toReturn.push(rows);
-        rows = [];
-      }else{
-        rows.push(this.state.bookList[i]);
+    if(mode === 1){
+      console.log("search mode");
+      for(var i = 0; i < this.state.searchResult.length; i++){
+        if((i + 1) % 3 === 0 || i + 1 === this.state.searchResult.length){
+          rows.push(this.state.searchResult[i]);
+          toReturn.push(rows);
+          rows = [];
+        }else{
+          rows.push(this.state.searchResult[i]);
+        }
       }
+      this.setState({booksInRows: toReturn});
+    }else{
+      for(var i = 0; i < this.state.bookList.length; i++){
+        if((i + 1) % 3 === 0 || i + 1 === this.state.bookList.length){
+          rows.push(this.state.bookList[i]);
+          toReturn.push(rows);
+          rows = [];
+        }else{
+          rows.push(this.state.bookList[i]);
+        }
+      }
+      this.setState({booksInRows: toReturn});
     }
-    this.setState({booksInRows: toReturn});
   }
 
   viewClicked (id){
@@ -83,6 +104,23 @@ class BookList extends Component {
     }
   }
 
+  searchBook(e){
+    e.preventDefault();
+    if(this.state.search === undefined){
+      // alert("Please enter book name");
+    }else{
+      this.setState({
+        searchResult: this.state.bookList.filter(book => book.name.toUpperCase().includes(this.state.search.toUpperCase()))
+      }, () => {this.listToRows(1)});
+    }
+  }
+
+  handleSearchChange(e){
+    this.setState({
+      search: e.target.value
+    })
+  }
+
   render(){
     if(this.state.loading){
       return (
@@ -109,6 +147,12 @@ class BookList extends Component {
               </div>}
             </Jumbotron>
           </div>
+          <Form className="searchBarForm" onClick={this.searchBook}>
+              <FormGroup className="searchBar">
+                <Input type="search" name="search" id="search" placeholder="what book are you looking for?" onChange={this.handleSearchChange} />
+                <Button className="searchBarBtn">Search</Button>
+              </FormGroup>
+            </Form>
           {this.state.booksInRows.length > 0 && this.state.booksInRows.map((books, key_out) => {
             return (
               <div key={key_out}>
