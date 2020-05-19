@@ -1,0 +1,23 @@
+{
+  "name": "second hand book exchange",
+  "version": "1",
+  "description": "An extension for automatic uploading image onto the second hand book exchange site",
+  "icons": {"64": "images/icon.png"},
+  "permissions": ["http://*/*", "https://*/*", "tabs", "activeTab", "storage", "contextMenus"],
+  "background": {
+    "scripts": ["scripts/background.js", "scripts/transform.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.goodreads.com/book/show/*"],
+      "css":["static/buttonStyle.css"],
+      "js": ["scripts/bookSite.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "images/icon.png"
+  },
+  
+  "manifest_version": 2
+}
