@@ -24,7 +24,7 @@ response content: {<br />
 `$ pip install -r requirements.txt`<br />
 ### The chatroom use websocket to build persistant connection
 
-# #The usage of backend API:
+## The usage of backend API:
 
 Go to the project root directory, run the following:<br />
 
