@@ -51,9 +51,10 @@ class BookList extends Component {
   listToRows(mode){
     var toReturn = [];
     var rows = [];
+    var i;
     if(mode === 1){
       console.log("search mode");
-      for(var i = 0; i < this.state.searchResult.length; i++){
+      for(i = 0; i < this.state.searchResult.length; i++){
         if((i + 1) % 3 === 0 || i + 1 === this.state.searchResult.length){
           rows.push(this.state.searchResult[i]);
           toReturn.push(rows);
@@ -64,7 +65,7 @@ class BookList extends Component {
       }
       this.setState({booksInRows: toReturn});
     }else{
-      for(var i = 0; i < this.state.bookList.length; i++){
+      for(i = 0; i < this.state.bookList.length; i++){
         if((i + 1) % 3 === 0 || i + 1 === this.state.bookList.length){
           rows.push(this.state.bookList[i]);
           toReturn.push(rows);
@@ -110,7 +111,7 @@ class BookList extends Component {
       // alert("Please enter book name");
     }else{
       this.setState({
-        searchResult: this.state.bookList.filter(book => book.name.toUpperCase().includes(this.state.search.toUpperCase()))
+        searchResult: this.state.bookList.filter(book => (book.name.toUpperCase().includes(this.state.search.toUpperCase()) || book.description.toUpperCase().includes(this.state.search.toUpperCase())))
       }, () => {this.listToRows(1)});
     }
   }

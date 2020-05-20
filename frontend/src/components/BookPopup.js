@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, CardImg, CardText } from 'reactstrap';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import '../styles/BookPopup.css';
@@ -17,7 +18,9 @@ class BookPopup extends Component {
       bookList: props.bookList,
       bookId: props.bookId
     }
+    this.user = props.user;
     this.findBook = this.findBook.bind(this);
+    this.handleInterested = this.handleInterested.bind(this);
   }
 
   findBook(){
@@ -35,8 +38,23 @@ class BookPopup extends Component {
   }
 
   handleInterested(){
-    
-    closeBookPopup();
+    var newList = this.findBook().peopleInterested;
+    newList.push(this.user.id);
+    fetch('http://127.0.0.1:8000/book/' + this.state.bookId + '/', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        peopleInterested: newList
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    .then((res) => {
+      console.log(res.json());
+      closeBookPopup();
+    })
+    .catch(error => console.log(error))
+    .then(response => console.log('Success:', response));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,4 +111,10 @@ class BookPopup extends Component {
   }
 }
 
-export default BookPopup;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
+export default connect(mapStateToProps)(BookPopup);
