@@ -103,7 +103,7 @@ class BookPopup extends Component {
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
-          <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>
+          {this.user && <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>}
         </div>
       </div>
 
