@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import '../styles/BookPopup.css';
+import { login } from '../actions/user';
 
 function closeBookPopup() {
   document.getElementById("bookPopup").scrollTop = 0;
@@ -21,6 +22,7 @@ class BookPopup extends Component {
     this.user = props.user;
     this.findBook = this.findBook.bind(this);
     this.handleInterested = this.handleInterested.bind(this);
+    this.handleUpdateBookInterested = props.handleUpdateBookInterested;
   }
 
   findBook(){
@@ -52,6 +54,8 @@ class BookPopup extends Component {
     .then((res) => {
       console.log(res.json());
       closeBookPopup();
+    }).then(() => {
+      this.handleUpdateBookInterested(this.user.username);
     })
     .catch(error => console.log(error))
     .then(response => console.log('Success:', response));
@@ -117,4 +121,23 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(BookPopup);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleUpdateBookInterested: (username) => {
+      fetch('http://127.0.0.1:8000/user/?username=' + username , {})
+      .then((response) => {
+      
+        console.log(response);
+        
+        return response.json(); 
+      }).then((data) => {
+        dispatch(login(data[0]));
+      }).catch((err) => {
+        console.log('err:', err);
+      });
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookPopup);

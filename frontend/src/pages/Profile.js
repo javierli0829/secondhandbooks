@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleFetchBookList: (data) => {
       dispatch(setBookCategoryList({bookList: data}));
-    }
+    },
   }
 }
 
