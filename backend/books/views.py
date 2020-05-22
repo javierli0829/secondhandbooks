@@ -19,18 +19,22 @@ def asyncEmail(receiver,content):
 
 def quickMatch(request,person):
     me = User.objects.get(pk=person)
-    myBooks = me.booksOwned
+    myBooks = []
+    for bk in me.booksOwned.all():
+        myBooks.append(bk.id)
     others = User.objects.all()
     targets = set()
     for other in others:
-        for x in other.bookInterested:
-            if x in myBooks:
+        for x in other.bookInterested.all():
+            if x.id in myBooks:
                 targets.add(other)
-    
     response_data = dict()
     response_data['books'] = []
     for other in targets:
-        response_data['books']+=other.booksOwned
+        for book in other.booksOwned.all():    
+            if len(book.matchedWith.all())==0:
+                b = BookSerializer(book).data
+                response_data['books'].append(b)
     res = json.dumps(response_data)
     return HttpResponse(res, content_type="application/json")
 
@@ -44,7 +48,7 @@ def match(request,person,book):
     matched = mybooks & owInterested
     matchedResult = []
     for b in matched:
-        if not b.matched:
+        if len(b.matchedWith.all())==0:
             book = BookSerializer(b).data
             matchedResult.append(book)
     response_data = {}
