@@ -19,6 +19,7 @@ class Book(models.Model):
     matched = models.BooleanField("matched",default=False)
     peopleInterested = models.ManyToManyField(User, related_name="bookInterested", null=True, blank=True)
     image = models.ImageField(upload_to="books/", null=True, blank=True, verbose_name="image")
+    matchedWith = models.ManyToManyField('self', blank=True, null=True, symmetrical=True)
 
     class Meta:
         verbose_name = 'Book'
