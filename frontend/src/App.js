@@ -8,6 +8,7 @@ import QuickMatch from './pages/QuickMatch';
 import BookList from './pages/BookList';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Friend from './pages/Friend';
 import MyInterested from './pages/MyInterested'
 import configureStore from './store/configureStore';
 import './styles/App.css'
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/login" exact component={Login} />
           <Route path="/profile" exact component={Profile}/>
           <Route path="/myInterested" exact component={MyInterested}/>
+          <Route path="/friend" component={Friend}/>
         </Router>
         <Footer />
       </Provider>
