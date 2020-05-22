@@ -20,6 +20,7 @@ from users.views import UserViewSet
 from books.views import BookViewSet
 from chat.views import chat
 from books.views import match
+from books.views import quickMatch
 from django.views.static import serve
 from bookExchange.settings import MEDIA_ROOT
 from rest_framework_simplejwt import views as jwt_views
@@ -31,6 +32,7 @@ router.register(r'book', BookViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('match/<person>/<book>',match, name='match-url'),
+    path('quickMatch/<person>',quickMatch, name='quickmatch-url'),
     path('chat/<username>', chat, name='chat-url'),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

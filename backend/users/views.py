@@ -17,6 +17,10 @@ class UserViewSet(viewsets.ModelViewSet):
     filterset_fields = ['id','username', 'email']
     
     def list(self, request):
+        if 'username' in request.query_params.keys():
+            username = request.query_params['username']
+            user = User.objects.filter(username = username)[0]
+            return self.retrieve(request,pk=user.id)
         queryset = User.objects.all()
         serializer = self.get_serializer(queryset, many=True)
         result_set = serializer.data

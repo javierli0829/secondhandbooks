@@ -17,6 +17,24 @@ def asyncEmail(receiver,content):
     send_mail('Notification from Secondhandbook', content, 'epiphanyandy@yahoo.com',
             [receiver], fail_silently=False)
 
+def quickMatch(request,person):
+    me = User.objects.get(pk=person)
+    myBooks = me.booksOwned
+    others = User.objects.all()
+    targets = set()
+    for other in others:
+        for x in other.bookInterested:
+            if x in myBooks:
+                targets.add(other)
+    
+    response_data = dict()
+    response_data['books'] = []
+    for other in targets:
+        response_data['books']+=other.booksOwned
+    res = json.dumps(response_data)
+    return HttpResponse(res, content_type="application/json")
+
+
 def match(request,person,book):
     us = User.objects.get(pk=person)
     bk = Book.objects.get(pk=book)
