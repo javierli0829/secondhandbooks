@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Jumbotron, Spinner } from 'reactstrap';
+import { Container, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -13,13 +13,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import BookPopup from '../components/BookPopup';
 import '../styles/MyInterested.css';
-import { setBookCategoryList } from '../actions/books';
 
 class MyInterested extends Component {
   constructor(props){
     super(props);
-    this.handleFetchBookList = props.handleFetchBookList;
     this.listToRows = this.listToRows.bind(this);
+    this.user = props.user;
     this.state = {
       bookList: [],
       booksInRows: [],
@@ -34,30 +33,19 @@ class MyInterested extends Component {
   }
 
   componentWillMount(){
-    fetch('http://127.0.0.1:8000/book/?matched=false', {})
-    .then((response) => {
-      return response.json();
-    }).then((data) => {
-      var filteredList = data.filter(book => book.peopleInterested.indexOf(2) !== -1);
-      this.setState({ bookList: filteredList, loading: false });
-      this.handleFetchBookList(data);
-    }).then(() => {
-      this.listToRows();
-    }).catch((err) => {
-      console.log('err', err);
-    });
+    this.listToRows();
   }
 
   listToRows(){
     var toReturn = [];
     var rows = [];
-    for(var i = 0; i < this.state.bookList.length; i++){
-      if((i + 1) % 3 === 0 || i + 1 === this.state.bookList.length){
-        rows.push(this.state.bookList[i]);
+    for(var i = 0; i < this.user.bookInterested.length; i++){
+      if((i + 1) % 3 === 0 || i + 1 === this.user.bookInterested.length){
+        rows.push(this.user.bookInterested.length[i]);
         toReturn.push(rows);
         rows = [];
       }else{
-        rows.push(this.state.bookList[i]);
+        rows.push(this.user.bookInterested.length[i]);
       }
     }
     this.setState({booksInRows: toReturn});
@@ -80,15 +68,6 @@ class MyInterested extends Component {
   }
 
   render(){
-    if(this.state.loading){
-      return (
-        <div className="BookList">
-          <Container>
-            <Spinner color="dark" />
-          </Container>
-        </div>
-      )
-    }
     return (
       <div className="BookList">
         <Container>
@@ -116,7 +95,7 @@ class MyInterested extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.bookList.map((book, key) => (
+                {this.user.bookInterested.map((book, key) => (
                   <TableRow key={key} >
                     <TableCell component="th" scope="row">
                       <button className="interestTableBookName" onClick={()=>{this.viewClicked(book.id)}}>{book.name}</button>
@@ -130,18 +109,16 @@ class MyInterested extends Component {
           </TableContainer>
           }
         </Container>
-        <BookPopup bookId={this.state.key_id} bookList={this.state.bookList} type="INTEREST"/>
+        <BookPopup bookId={this.state.key_id} bookList={this.user.bookInterested} type="INTEREST"/>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    handleFetchBookList: (data) => {
-      dispatch(setBookCategoryList({bookList: data}));
-    }
+    user: state.user.user
   }
 }
 
-export default connect(null, mapDispatchToProps)(MyInterested);
+export default connect(mapStateToProps)(MyInterested);

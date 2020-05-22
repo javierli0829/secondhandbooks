@@ -16,16 +16,29 @@ class Friend extends Component {
   constructor(props) {
     super(props);
     this.handleFetchBookList = props.handleFetchBookList;
-    this.user = props.user;
     this.state = {
       bookList: [],
+      user: null,
       loading: true
     }
   }
 
   componentWillMount(){
-    if(this.user === undefined) window.location.href = '/';
-    fetch('http://127.0.0.1:8000/book/?owner=' + this.user.id, {})
+    let search = window.location.search;
+    let userId = new URLSearchParams(search).get('id');
+
+    fetch('http://127.0.0.1:8000/user/?id=' + userId, {})
+    .then((response) => {return response.json()})
+    .then((data) => {
+    //
+    data = data.filter((user) => user.id === parseInt(userId));
+    //
+      this.setState({user: data[0]});
+    }).catch((err) => {
+      console.log('err', err);
+    })
+
+    fetch('http://127.0.0.1:8000/book/?owner=' + userId , {})
     .then((response) => {
       return response.json();
     }).then((data) => {
@@ -53,8 +66,8 @@ class Friend extends Component {
     return (
       <div className="Profile">
         <Container className="ProfileContainer">
-          {this.user.image !== null ?
-            <img className="profilePicture" src={this.user.image} alt={this.user.username}/>
+          {(this.state.user && this.state.user.image !== null) ?
+            <img className="profilePicture" src={this.state.user.image} alt={this.state.user.username}/>
             :
             <FontAwesomeIcon className="headerUserIcon fa-10x" icon={faUser}/>
           }
@@ -62,10 +75,10 @@ class Friend extends Component {
           <Row>
             <Col className="profileCard" sm="12" md={{ size: 6, offset: 3 }}>
               <Card body>
-                <CardTitle className="profileCardTitle">{this.user.username}</CardTitle>
+                <CardTitle className="profileCardTitle">{this.state.user ? this.state.user.username : 'Name'}</CardTitle>
                 <CardText><strong>Email</strong></CardText>
                 <ListGroup>
-                  <ListGroupItem>{this.user.email}</ListGroupItem>
+                  <ListGroupItem>{this.state.user ? this.state.user.email : 'Email'}</ListGroupItem>
                 </ListGroup>
                 <hr/>
                 <CardText><strong>My books</strong></CardText>
