@@ -12,6 +12,7 @@ class Login extends Component {
       account: null,
       password: null,
       email: null,
+      address: null,
       selectedFile: null
     };
     this.handleLogin = props.handleLogin;
@@ -21,6 +22,7 @@ class Login extends Component {
     this.handleAccountChange = this.handleAccountChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
   }
 
@@ -39,6 +41,7 @@ class Login extends Component {
     let account = this.state.account;
     let password = this.state.password;
     let email = this.state.email;
+    let address = this.state.address;
     let image;
     if(this.state.selectedFile !== null){
       image = new File([this.state.selectedFile], 'image.jpg');
@@ -48,6 +51,7 @@ class Login extends Component {
     formData.append('username', account);
     formData.append('password', password);
     formData.append('email', email);
+    formData.append('address', address);
 
     fetch('http://127.0.0.1:8000/user/', {
       method: 'POST',
@@ -76,6 +80,12 @@ class Login extends Component {
   handleEmailChange(e) {
     this.setState({
       email: e.target.value
+    })
+  }
+
+  handleAddressChange(e) {
+    this.setState({
+      address: e.target.value
     })
   }
 
@@ -126,6 +136,10 @@ class Login extends Component {
                 <Input type="text" name="email" id="emailInput" placeholder="Email" onChange={this.handleEmailChange} required/>
               </FormGroup>
               <FormGroup className="formGroup">
+                <Label for="account">Address</Label>
+                <Input type="text" name="address" id="addressInput" placeholder="Your Mailing Address" onChange={this.handleAddressChange} />
+              </FormGroup>
+              <FormGroup className="formGroup">
               <Label for="image">Profile Picture</Label>
               <Input type="file" name="image" id="imageSelector" accept="image/*" onChange={this.handleFileChange}/>
             </FormGroup>
@@ -154,7 +168,7 @@ const mapDispatchToProps = (dispatch) => {
     handleLogin: () => {
       const account = document.getElementById("accountInput").value;
       const password = document.getElementById("passwordInput").value;
-      fetch('http://127.0.0.1:8000/user/?username=' + account, {})
+      fetch('http://127.0.0.1:8000/user/?username=' + account , {})
       .then((response) => {
       
         console.log(response);

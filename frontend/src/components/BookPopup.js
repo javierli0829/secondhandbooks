@@ -106,7 +106,10 @@ class BookPopup extends Component {
               <CardText><strong>Category: </strong>{this.showCategory(this.findBook().category)}</CardText>
               <CardText><strong>Description: </strong>{this.findBook().description}</CardText>
               <CardText><strong>Posted Time: </strong>{this.returnDate()}</CardText>
-              <CardText><strong>Owned By: </strong>{this.findBook().owner}</CardText>
+              <CardText>
+                <strong>Owned By: </strong>
+                <a className="bookPopupOwner" href="/">{this.findBook().owner}</a>
+              </CardText>
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
