@@ -15,19 +15,22 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     filterset_fields = ['id','username', 'email']
-
+    
     def list(self, request):
-        serializer = self.get_serializer(self.queryset, many=True)
+        queryset = User.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
         result_set = serializer.data
-        users = self.queryset
+        users = queryset
         for id in range(0,len(users)):
             books = users[id].bookInterested.all()
             bookList = BookSerializer(books, many=True).data
             result_set[id]['bookInterested'] = bookList
         return Response(result_set)
+    
 
     def retrieve(self, request, pk=None):
-        user = get_object_or_404(self.queryset, pk=pk)
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
         serializer = self.get_serializer(user)
         result_set = serializer.data
         books = user.bookInterested.all()
