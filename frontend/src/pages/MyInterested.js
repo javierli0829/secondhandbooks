@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Jumbotron, Spinner } from 'reactstrap';
+import { Container, Jumbotron, Spinner } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import BookCard from '../components/BookCard';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import BookPopup from '../components/BookPopup';
 import '../styles/MyInterested.css';
 import { setBookCategoryList } from '../actions/books';
@@ -16,9 +23,14 @@ class MyInterested extends Component {
     this.state = {
       bookList: [],
       booksInRows: [],
-      key_id: props.key_id,
+      key_id: 0,
       loading: true
-    }
+    };
+    this.useStyles = makeStyles({
+      table: {
+        minWidth: 650,
+      },
+    })
   }
 
   componentWillMount(){
@@ -31,8 +43,7 @@ class MyInterested extends Component {
       this.handleFetchBookList(data);
     }).then(() => {
       this.listToRows();
-    }
-    ).catch((err) => {
+    }).catch((err) => {
       console.log('err', err);
     });
   }
@@ -60,6 +71,14 @@ class MyInterested extends Component {
     });
   }
 
+  returnDate(postedTime){
+    var time = new Date(postedTime);
+    var date = time.getDate();
+    var month = time.getMonth() + 1;
+    var year = time.getFullYear();
+    return year + ' / ' + month + ' / ' + date;
+  }
+
   render(){
     if(this.state.loading){
       return (
@@ -75,7 +94,7 @@ class MyInterested extends Component {
         <Container>
           <div>
             <Jumbotron className="bigBlock">
-              <h1 className="display-4">My Interested</h1>
+              <h1 className="display-4">My Interest</h1>
               {this.state.booksInRows.length === 0 &&
               <div>
                 <hr/>
@@ -86,30 +105,30 @@ class MyInterested extends Component {
               </div>}
             </Jumbotron>
           </div>
-          {this.state.booksInRows.length > 0 && this.state.booksInRows.map((books, key_out) => {
-            return (
-              <div key={key_out}>
-                <Row>
-                  {books.map((book, key_in) => {
-                    return (
-                    <Col xs="6" sm="4" key={key_in}>
-                      <BookCard 
-                        title={book.name}
-                        category={book.category}
-                        author={book.author}
-                        description={book.description}
-                        postedTime={book.postedTime}
-                        image={book.image}
-                        viewClicked={()=>this.viewClicked(book.id)} />
-                    </Col>)
-                  })}
-                </Row>
-                <hr/>
-              </div>
-            )
-          })}
+          <TableContainer component={Paper}>
+            <Table className={this.useStyles.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Book name</TableCell>
+                  <TableCell align="right">Posted Date</TableCell>
+                  <TableCell align="right">Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.bookList.map((book, key) => (
+                  <TableRow key={key} >
+                    <TableCell component="th" scope="row">
+                      <button className="interestTableBookName" onClick={()=>{this.viewClicked(book.id)}}>{book.name}</button>
+                    </TableCell>
+                    <TableCell align="right">{this.returnDate(book.postedTime)}</TableCell>
+                    <TableCell align="right">{book.matched ? "Matched" : "Waiting"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Container>
-        <BookPopup bookId={this.state.key_id} bookList={this.state.bookList}/>
+        <BookPopup bookId={this.state.key_id} bookList={this.state.bookList} type="INTEREST"/>
       </div>
     );
   }

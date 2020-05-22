@@ -48,3 +48,16 @@
 .bookPopupIcon {
   margin-bottom: 1rem;
 }
+
+.bookPopupOwner {
+  border-width:  0;
+  background-color: transparent;
+  color: black;
+  text-decoration: underline;
+}
+
+.bookPopupOwner:hover {
+  border-width:  0;
+  background-color: transparent;
+  color: gray;
+}

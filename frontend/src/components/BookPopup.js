@@ -17,8 +17,9 @@ class BookPopup extends Component {
     super(props);
     this.state = {
       bookList: props.bookList,
-      bookId: props.bookId
+      bookId: props.bookId,
     }
+    this.type = props.type
     this.user = props.user;
     this.findBook = this.findBook.bind(this);
     this.handleInterested = this.handleInterested.bind(this);
@@ -85,6 +86,7 @@ class BookPopup extends Component {
   }
 
   render() {
+    console.log(this.props.type);
     return (
       <div id="bookPopupMask">
         <div id="bookPopup">
@@ -103,11 +105,15 @@ class BookPopup extends Component {
               <CardText><strong>Author: </strong>{this.findBook().author}</CardText>
               <CardText><strong>Category: </strong>{this.showCategory(this.findBook().category)}</CardText>
               <CardText><strong>Description: </strong>{this.findBook().description}</CardText>
-              <CardText><strong>postedTime: </strong>{this.returnDate()}</CardText>
+              <CardText><strong>Posted Time: </strong>{this.returnDate()}</CardText>
+              <CardText>
+                <strong>Owned By: </strong>
+                <a className="bookPopupOwner" href="/">{this.findBook().owner}</a>
+              </CardText>
             </div>
           </div>}
           <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
-          {this.user && <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>}
+          {(this.user && this.type !== "INTEREST") && <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>}
         </div>
       </div>
 
