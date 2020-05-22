@@ -108,7 +108,7 @@ class BookPopup extends Component {
               <CardText><strong>Posted Time: </strong>{this.returnDate()}</CardText>
               <CardText>
                 <strong>Owned By: </strong>
-                <a className="bookPopupOwner" href="/">{this.findBook().owner}</a>
+                <a className="bookPopupOwner" href={"/friend?id=" + this.findBook().owner}>{this.findBook().owner}</a>
               </CardText>
             </div>
           </div>}

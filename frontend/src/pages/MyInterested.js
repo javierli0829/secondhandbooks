@@ -99,12 +99,13 @@ class MyInterested extends Component {
               <div>
                 <hr/>
                 <p className="lead">
-                  <FontAwesomeIcon color="black" icon={faSearch} /> None is interested in your books yet. 
+                  <FontAwesomeIcon color="black" icon={faSearch} /> You don't have any book interested. 
                   <a href="/"> Back to homepage.</a>
                 </p>
               </div>}
             </Jumbotron>
           </div>
+          {this.state.booksInRows.length !== 0 && 
           <TableContainer component={Paper}>
             <Table className={this.useStyles.table} aria-label="simple table">
               <TableHead>
@@ -127,6 +128,7 @@ class MyInterested extends Component {
               </TableBody>
             </Table>
           </TableContainer>
+          }
         </Container>
         <BookPopup bookId={this.state.key_id} bookList={this.state.bookList} type="INTEREST"/>
       </div>
