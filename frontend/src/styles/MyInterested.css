@@ -1,0 +1,12 @@
+.interestTableBookName {
+  border-width:  0;
+  background-color: transparent;
+  color: black;
+  text-decoration: underline;
+}
+
+.interestTableBookName:hover {
+  border-width:  0;
+  background-color: transparent;
+  color: gray;
+}

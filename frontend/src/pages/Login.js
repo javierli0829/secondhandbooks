@@ -154,7 +154,7 @@ const mapDispatchToProps = (dispatch) => {
     handleLogin: () => {
       const account = document.getElementById("accountInput").value;
       const password = document.getElementById("passwordInput").value;
-      fetch('http://127.0.0.1:8000/user/?username=' + account , {})
+      fetch('http://127.0.0.1:8000/user/?username=' + account, {})
       .then((response) => {
       
         console.log(response);

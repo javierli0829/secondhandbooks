@@ -24,7 +24,7 @@ class BookList extends Component {
       bookList: [],
       searchResult: [],
       booksInRows: [],
-      key_id: props.key_id,
+      key_id: 0,
       loading: true,
       search: undefined
     }
@@ -42,8 +42,7 @@ class BookList extends Component {
       this.handleFetchBookList(data);
     }).then(() => {
       this.listToRows();
-    }
-    ).catch((err) => {
+    }).catch((err) => {
       console.log('err', err);
     });
   }
