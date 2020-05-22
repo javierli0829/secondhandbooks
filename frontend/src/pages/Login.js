@@ -176,14 +176,14 @@ const mapDispatchToProps = (dispatch) => {
         return response.json(); 
       }).then((data) => {
         console.log(data);
-        //
-        data = data.filter((user) => user.username === account);
-        //
+        // //
+        // data = data.filter((user) => user.username === account);
+        // //
         if(data.length === 0){
           alert("No user found.");
         }else{
-          if(data[0].password === password){
-            dispatch(login(data[0]));
+          if(data.password === password){
+            dispatch(login(data));
             window.location.href = '/';
           }else{
             alert("Wrong password.");

@@ -30,9 +30,7 @@ class Friend extends Component {
     fetch('http://127.0.0.1:8000/user/?id=' + userId, {})
     .then((response) => {return response.json()})
     .then((data) => {
-    //
-    data = data.filter((user) => user.id === parseInt(userId));
-    //
+      data = data.filter(user => user.id === parseInt(userId));
       this.setState({user: data[0]});
     }).catch((err) => {
       console.log('err', err);
@@ -44,10 +42,7 @@ class Friend extends Component {
     }).then((data) => {
       this.setState({ bookList: data, loading: false });
       this.handleFetchBookList(data);
-    }).then(() => {
-      this.listToRows();
-    }
-    ).catch((err) => {
+    }).catch((err) => {
       console.log('err', err);
     });
   }
