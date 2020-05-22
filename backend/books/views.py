@@ -5,8 +5,10 @@ from .serializers import BookSerializer
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 import json
+from books.serializers import BookSerializer
 from django.http import HttpResponse
 from celery import task
+from django.core import serializers
 
 User = get_user_model()
 
@@ -25,11 +27,13 @@ def match(request,person,book):
     matchedResult = []
     for b in matched:
         if not b.matched:
-            matchedResult.append(b.id)
+            book = BookSerializer(b).data
+            matchedResult.append(book)
     response_data = {}
     response_data['matchedBooks'] = list(matchedResult)
     response_data['booksOwner'] = ow.username
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    res = json.dumps(response_data)
+    return HttpResponse(res, content_type="application/json")
 
 
 class BookViewSet(viewsets.ModelViewSet):
