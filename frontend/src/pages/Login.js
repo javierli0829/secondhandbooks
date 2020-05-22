@@ -176,9 +176,6 @@ const mapDispatchToProps = (dispatch) => {
         return response.json(); 
       }).then((data) => {
         console.log(data);
-        // //
-        // data = data.filter((user) => user.username === account);
-        // //
         if(data.length === 0){
           alert("No user found.");
         }else{

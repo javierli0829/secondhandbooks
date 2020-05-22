@@ -33,6 +33,7 @@ class MyInterested extends Component {
   }
 
   componentWillMount(){
+    if(this.user === undefined) window.location.href = '/';
     this.listToRows();
   }
 

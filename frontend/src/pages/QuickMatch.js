@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Jumbotron, Spinner } from 'reactstrap';
+import { Container, Col, Row, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -18,11 +18,13 @@ class QuickMatch extends Component {
       booksInRows: [],
       key_id: props.key_id,
       loading: true
-    }
+    };
+    this.user = props.user;
   }
 
   componentWillMount(){
-    fetch('http://127.0.0.1:8000/book/?matched=false', {})
+    if(this.user === undefined) window.location.href = '/';
+    fetch('http://127.0.0.1:8000/quickMatch/' + this.user.id, {})
     .then((response) => {
       return response.json();
     }).then((data) => {
@@ -60,15 +62,15 @@ class QuickMatch extends Component {
   }
 
   render(){
-    if(this.state.loading){
-      return (
-        <div className="BookList">
-          <Container>
-            <Spinner color="dark" />
-          </Container>
-        </div>
-      )
-    }
+    // if(this.state.loading){
+    //   return (
+    //     <div className="BookList">
+    //       <Container>
+    //         <Spinner color="dark" />
+    //       </Container>
+    //     </div>
+    //   )
+    // }
     return (
       <div className="BookList">
         <Container>
@@ -114,6 +116,12 @@ class QuickMatch extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     handleFetchBookList: (data) => {
@@ -122,4 +130,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(QuickMatch);
+export default connect(mapStateToProps, mapDispatchToProps)(QuickMatch);

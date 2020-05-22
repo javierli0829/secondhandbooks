@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
         
         return response.json(); 
       }).then((data) => {
-        dispatch(login(data[0]));
+        dispatch(login(data));
       }).catch((err) => {
         console.log('err:', err);
       });
