@@ -46,6 +46,9 @@ const Header = (props) => {
                     <DropdownItem href="/profile/">
                       Profile
                     </DropdownItem>
+                    <DropdownItem href="/myInterested/">
+                      My Interest
+                    </DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem onClick={handleLogout}>
                       <strong>Logout</strong>
