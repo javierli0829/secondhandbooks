@@ -13,7 +13,7 @@ class User(AbstractUser):
     email
     """
     image = models.ImageField(upload_to="users/", null=True, blank=True, verbose_name="image")
- 
+    address = models.TextField(max_length=1000, default='unknown', null=True)
     class Meta(AbstractUser.Meta):
         verbose_name = "User"
         verbose_name_plural = verbose_name
