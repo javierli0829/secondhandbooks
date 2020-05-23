@@ -78,7 +78,7 @@ class MyInterested extends Component {
     if(this.user.booksOwned.indexOf(matchedWith[0]) !== -1){
       return 'Matched';
     }else{
-      return 'Matched with Others';
+      return 'Failed to Match';
     }
   }
 

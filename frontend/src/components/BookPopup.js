@@ -21,11 +21,13 @@ class BookPopup extends Component {
     this.state = {
       bookList: props.bookList,
       bookId: props.bookId,
-      matchList: {}
+      matchList: {},
+      ownerAddress: null
     }
     this.type = props.type
     this.user = props.user;
     this.findBook = this.findBook.bind(this);
+    this.findAddress = this.findAddress.bind(this);
     this.handleInterested = this.handleInterested.bind(this);
     this.handleMatch = this.handleMatch.bind(this);
     this.handleUpdateBookInterested = props.handleUpdateBookInterested;
@@ -59,7 +61,6 @@ class BookPopup extends Component {
     })
     .then((res) => {
       console.log(res.json());
-      // closeBookPopup();
     }).then(() => {
       this.handleUpdateBookInterested(this.user.username);
     })
@@ -81,12 +82,65 @@ class BookPopup extends Component {
     });
   }
 
-  handleMatch(){
+  handleMatch(book){
+    var newList = [];
+    newList.push(book.id);
+    fetch('http://127.0.0.1:8000/book/' + this.state.bookId + '/', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        matchedWith: newList,
+        matched: true
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    .then((res) => {
+      console.log(res.json());
+    }).then(() => {
+      this.handleUpdateBookInterested(this.user.username);
+    })
+    .catch(error => console.log(error))
+    .then(response => {
+      console.log('Success:', response);
+    });
+
+    fetch('http://127.0.0.1:8000/book/' + book.id + '/', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        matched: true
+      }),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    .then((res) => {
+      console.log(res.json());
+    }).then(() => {
+      this.handleUpdateBookInterested(this.user.username);
+    })
+    .catch(error => console.log(error))
+    .then(response => {
+      console.log('Success:', response);
+    });
+    this.setState({matchList: {}});
     closeBookPopup();
   }
 
+  findAddress(id){
+    fetch('http://127.0.0.1:8000/user/' + id + '/', {})
+    .then((res) => {
+      return res.json();
+    }).then((data) => {
+      console.log("ADDRESS: " + data.address);
+      this.setState({ownerAddress: data.address});
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({ bookId: nextProps.bookId, bookList: nextProps.bookList });
+    this.setState({ bookId: nextProps.bookId, bookList: nextProps.bookList }, () => {
+      this.setState({ownerAddress: this.findBook() ? this.findAddress(this.findBook().owner) : ''});
+    });
   }
 
   showCategory(cat){
@@ -129,7 +183,7 @@ class BookPopup extends Component {
                     <CardTitle className="cardTitle"><strong>Book name: </strong>{book.name}</CardTitle>
                     <CardText className="cardText"><strong>Author: </strong>{book.author}</CardText>
                     <CardText className="cardText"><strong>Description: </strong>{book.description}</CardText>
-                    <Button className="viewButton" onClick={this.handleMatch}>Match</Button>
+                    <Button className="viewButton" onClick={() => {this.handleMatch(book)}}>Match</Button>
                   </CardBody>
                 </Card>
               )
@@ -163,8 +217,14 @@ class BookPopup extends Component {
               </CardText>
             </div>
           </div>}
-          <Button className="bookPopupBtn" onClick={closeBookPopup}>Cancel</Button>
-          {(this.user && this.type !== "INTEREST") && <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>}
+          {(this.type === 'INTEREST' && this.findBook()) && 
+          <div>
+            <p>Please Mail Your Book To:</p>
+            <p>{this.state.ownerAddress}</p>
+            <br />
+          </div>}
+          <Button className="bookPopupBtn" onClick={closeBookPopup}>{this.type === 'INTEREST' ? 'Close' : 'Cancel'}</Button>
+          {(this.user && (this.findBook() && this.findBook().owner !== this.user.id) && this.type !== "INTEREST") && <Button className="bookPopupBtn" onClick={this.handleInterested}>Interested</Button>}
         </div>
       </div>
 

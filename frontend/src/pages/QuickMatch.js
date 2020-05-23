@@ -63,29 +63,26 @@ class QuickMatch extends Component {
   }
 
   render(){
-    // if(this.state.loading){
-    //   return (
-    //     <div className="BookList">
-    //       <Container>
-    //         <Spinner color="dark" />
-    //       </Container>
-    //     </div>
-    //   )
-    // }
     return (
       <div className="BookList">
         <Container>
           <div>
             <Jumbotron className="bigBlock">
               <h1 className="display-4">Quick Match</h1>
-              {this.state.booksInRows.length === 0 &&
+              {this.state.booksInRows.length === 0 ?
               <div>
                 <hr/>
                 <p className="lead">
                   <FontAwesomeIcon color="black" icon={faSearch} /> None is interested in your books yet. 
                   <a href="/"> Back to homepage.</a>
                 </p>
-              </div>}
+              </div>
+              :
+              <div>
+                <hr/>
+                <p className="lead">This page shows all books of people interested in your books.</p>
+              </div>
+              }
             </Jumbotron>
           </div>
           {this.state.booksInRows.length > 0 && this.state.booksInRows.map((books, key_out) => {

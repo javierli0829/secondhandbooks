@@ -140,7 +140,7 @@ class Login extends Component {
               </FormGroup>
               <FormGroup className="formGroup">
                 <Label for="account">Address</Label>
-                <Input type="text" name="address" id="addressInput" placeholder="Your Mailing Address" onChange={this.handleAddressChange} />
+                <Input type="text" name="address" id="addressInput" placeholder="Your Mailing Address" onChange={this.handleAddressChange} required/>
               </FormGroup>
               <FormGroup className="formGroup">
               <Label for="image">Profile Picture</Label>
