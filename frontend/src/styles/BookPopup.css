@@ -65,3 +65,21 @@
 .matchCard {
   margin: 1rem;
 }
+
+.matchDescription {
+  border-style: solid;
+  border-color: black;
+  padding: 1rem;
+  margin: 2rem 5% 2rem;
+}
+
+.matchWords {
+  margin: 2rem 1rem;
+}
+
+.winkImage {
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
+  margin-top: 2rem;
+}

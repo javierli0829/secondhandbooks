@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBook } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faLaughWink } from '@fortawesome/free-solid-svg-icons'
 import '../styles/BookPopup.css';
 import { login } from '../actions/user';
 
@@ -27,6 +27,7 @@ class BookPopup extends Component {
     this.user = props.user;
     this.findBook = this.findBook.bind(this);
     this.handleInterested = this.handleInterested.bind(this);
+    this.handleMatch = this.handleMatch.bind(this);
     this.handleUpdateBookInterested = props.handleUpdateBookInterested;
   }
 
@@ -80,6 +81,10 @@ class BookPopup extends Component {
     });
   }
 
+  handleMatch(){
+    closeBookPopup();
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ bookId: nextProps.bookId, bookList: nextProps.bookList });
   }
@@ -109,7 +114,8 @@ class BookPopup extends Component {
       return (
         <div id="bookPopupMask">
           <div id="bookPopup">
-            <p>{this.state.matchList.booksOwner} is also interested in your following books, choose one to match!</p>
+            <FontAwesomeIcon className="winkImage fa-4x" color="#BED905" icon={faLaughWink}/>
+            <p className="matchWords"><strong>{this.state.matchList.booksOwner}</strong> is also interested in your following books, choose one to match!</p>
             {this.state.matchList.matchedBooks.map((book, key) => {
               return(
                 <Card className="matchCard" key={key}>
@@ -119,10 +125,11 @@ class BookPopup extends Component {
                   <div >
                     <FontAwesomeIcon className="bookImage fa-5x" color="black" icon={faBook}/>
                   </div>}
-                  <CardBody>
-                    <CardTitle className="cardTitle">Book name: {book.name}</CardTitle>
-                    <CardText className="cardText">Author: {book.author}</CardText>
-                    <Button className="viewButton">Match</Button>
+                  <CardBody className="matchDescription">
+                    <CardTitle className="cardTitle"><strong>Book name: </strong>{book.name}</CardTitle>
+                    <CardText className="cardText"><strong>Author: </strong>{book.author}</CardText>
+                    <CardText className="cardText"><strong>Description: </strong>{book.description}</CardText>
+                    <Button className="viewButton" onClick={this.handleMatch}>Match</Button>
                   </CardBody>
                 </Card>
               )
