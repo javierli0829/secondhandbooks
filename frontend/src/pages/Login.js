@@ -51,7 +51,10 @@ class Login extends Component {
     formData.append('username', account);
     formData.append('password', password);
     formData.append('email', email);
-    formData.append('address', address);
+
+    if(this.state.address !== null){
+      formData.append('address', address);
+    }
 
     fetch('http://127.0.0.1:8000/user/', {
       method: 'POST',

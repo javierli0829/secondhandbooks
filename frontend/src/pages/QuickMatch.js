@@ -28,7 +28,8 @@ class QuickMatch extends Component {
     .then((response) => {
       return response.json();
     }).then((data) => {
-      this.setState({ bookList: data, loading: false });
+      console.log(data);
+      this.setState({ bookList: data.books, loading: false });
       this.handleFetchBookList(data);
     }).then(() => {
       this.listToRows();

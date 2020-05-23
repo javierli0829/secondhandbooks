@@ -12,13 +12,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import BookPopup from '../components/BookPopup';
+import { login } from '../actions/user';
 import '../styles/MyInterested.css';
 
 class MyInterested extends Component {
   constructor(props){
     super(props);
     this.listToRows = this.listToRows.bind(this);
+    this.checkStatus = this.checkStatus.bind(this);
     this.user = props.user;
+    this.handleUpdateBookInterested = props.handleUpdateBookInterested;
     this.state = {
       bookList: [],
       booksInRows: [],
@@ -34,6 +37,7 @@ class MyInterested extends Component {
 
   componentWillMount(){
     if(this.user === undefined) window.location.href = '/';
+    this.handleUpdateBookInterested(this.user.username);
     this.listToRows();
   }
 
@@ -66,6 +70,16 @@ class MyInterested extends Component {
     var month = time.getMonth() + 1;
     var year = time.getFullYear();
     return year + ' / ' + month + ' / ' + date;
+  }
+
+  checkStatus(matchedWith){
+    console.log('match status: ', matchedWith);
+    if(matchedWith.length === 0) return 'Waiting for Response';
+    if(this.user.booksOwned.indexOf(matchedWith[0]) !== -1){
+      return 'Matched';
+    }else{
+      return 'Matched with Others';
+    }
   }
 
   render(){
@@ -102,7 +116,7 @@ class MyInterested extends Component {
                       <button className="interestTableBookName" onClick={()=>{this.viewClicked(book.id)}}>{book.name}</button>
                     </TableCell>
                     <TableCell align="right">{this.returnDate(book.postedTime)}</TableCell>
-                    <TableCell align="right">{book.matched ? "Matched" : "Waiting"}</TableCell>
+                    <TableCell align="right">{this.checkStatus(book.matchedWith)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -122,4 +136,23 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MyInterested);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleUpdateBookInterested: (username) => {
+      fetch('http://127.0.0.1:8000/user/?username=' + username , {})
+      .then((response) => {
+      
+        console.log(response);
+        
+        return response.json(); 
+      }).then((data) => {
+        dispatch(login(data));
+      }).catch((err) => {
+        console.log('err:', err);
+      });
+    },
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyInterested);

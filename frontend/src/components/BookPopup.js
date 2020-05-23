@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Button, CardImg, CardText } from 'reactstrap';
+import { 
+  Button, CardImg, CardText,
+  Card, CardTitle, CardBody
+} from 'reactstrap';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBook } from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +21,7 @@ class BookPopup extends Component {
     this.state = {
       bookList: props.bookList,
       bookId: props.bookId,
+      matchList: {}
     }
     this.type = props.type
     this.user = props.user;
@@ -54,12 +58,26 @@ class BookPopup extends Component {
     })
     .then((res) => {
       console.log(res.json());
-      closeBookPopup();
+      // closeBookPopup();
     }).then(() => {
       this.handleUpdateBookInterested(this.user.username);
     })
     .catch(error => console.log(error))
-    .then(response => console.log('Success:', response));
+    .then(response => {
+      console.log('Success:', response);
+    });
+
+    fetch('http://127.0.0.1:8000/match/' + this.user.id + '/' + this.state.bookId, {})
+    .then((res) => {
+      return res.json(); 
+    })
+    .then((data) => {
+      console.log('possible match: ' + data)
+      this.setState({matchList: data});
+      if(!(data.matchedBooks && data.matchedBooks.length > 0)){
+        closeBookPopup();
+      }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,6 +105,32 @@ class BookPopup extends Component {
 
   render() {
     console.log(this.props.type);
+    if(this.state.matchList.matchedBooks && this.state.matchList.matchedBooks.length > 0){
+      return (
+        <div id="bookPopupMask">
+          <div id="bookPopup">
+            <p>{this.state.matchList.booksOwner} is also interested in your following books, choose one to match!</p>
+            {this.state.matchList.matchedBooks.map((book, key) => {
+              return(
+                <Card className="matchCard" key={key}>
+                  {book.image ? 
+                  <CardImg className="bookImage" top src={book.image} alt="Card image cap" /> 
+                  : 
+                  <div >
+                    <FontAwesomeIcon className="bookImage fa-5x" color="black" icon={faBook}/>
+                  </div>}
+                  <CardBody>
+                    <CardTitle className="cardTitle">Book name: {book.name}</CardTitle>
+                    <CardText className="cardText">Author: {book.author}</CardText>
+                    <Button className="viewButton">Match</Button>
+                  </CardBody>
+                </Card>
+              )
+            })}
+          </div>
+        </div>
+      )
+    }
     return (
       <div id="bookPopupMask">
         <div id="bookPopup">
@@ -108,7 +152,7 @@ class BookPopup extends Component {
               <CardText><strong>Posted Time: </strong>{this.returnDate()}</CardText>
               <CardText>
                 <strong>Owned By: </strong>
-                <a className="bookPopupOwner" href={"/friend?id=" + this.findBook().owner}>{this.findBook().owner}</a>
+                <a className="bookPopupOwner" href={"/friend?id=" + this.findBook().owner}>{this.findBook().ownerName}</a>
               </CardText>
             </div>
           </div>}
