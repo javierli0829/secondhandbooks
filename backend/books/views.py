@@ -15,7 +15,7 @@ User = get_user_model()
 @task
 def asyncEmail(receiver,content):
     send_mail('Notification from Secondhandbook', content, 'epiphanyandy@yahoo.com',
-            [receiver], fail_silently=False)
+            [receiver], fail_silently=True)
 
 def quickMatch(request,person):
     me = User.objects.get(pk=person)
