@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
     def list(self, request):
         if 'username' in request.query_params.keys():
+            
             username = request.query_params['username']
             user = User.objects.filter(username = username)[0]
             return self.retrieve(request,pk=user.id)

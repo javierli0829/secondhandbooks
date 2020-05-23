@@ -21,7 +21,8 @@ def quickMatch(request,person):
     me = User.objects.get(pk=person)
     myBooks = []
     for bk in me.booksOwned.all():
-        myBooks.append(bk.id)
+        if len(bk.matchedWith.all())==0:
+            myBooks.append(bk.id)
     others = User.objects.all()
     targets = set()
     for other in others:
