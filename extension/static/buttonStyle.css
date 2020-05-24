@@ -1,0 +1,9 @@
+#uploadButton {
+  background-color: blue; 
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
