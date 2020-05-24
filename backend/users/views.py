@@ -30,6 +30,9 @@ class UserViewSet(viewsets.ModelViewSet):
             books = users[id].bookInterested.all()
             bookList = BookSerializer(books, many=True).data
             result_set[id]['bookInterested'] = bookList
+            for b in result_set[id]['bookInterested']:
+                if b['image']:
+                    b['image']='http://127.0.0.1:8000'+b['image']
         return Response(result_set)
     
 
@@ -41,6 +44,9 @@ class UserViewSet(viewsets.ModelViewSet):
         books = user.bookInterested.all()
         bookList = BookSerializer(books, many=True).data
         result_set['bookInterested'] = bookList
+        for b in result_set['bookInterested']:
+             if b['image']:
+                    b['image']='http://127.0.0.1:8000'+b['image']
         return Response(result_set)
   
     

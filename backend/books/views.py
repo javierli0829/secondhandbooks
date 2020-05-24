@@ -35,6 +35,8 @@ def quickMatch(request,person):
         for book in other.booksOwned.all():    
             if len(book.matchedWith.all())==0:
                 b = BookSerializer(book).data
+                if b['image']:
+                    b['image']='http://127.0.0.1:8000'+b['image']
                 response_data['books'].append(b)
     res = json.dumps(response_data)
     return HttpResponse(res, content_type="application/json")
@@ -51,6 +53,8 @@ def match(request,person,book):
     for b in matched:
         if len(b.matchedWith.all())==0:
             book = BookSerializer(b).data
+            if book['image']:
+                book['image']='http://127.0.0.1:8000'+book['image']
             matchedResult.append(book)
     response_data = {}
     response_data['matchedBooks'] = list(matchedResult)
