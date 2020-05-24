@@ -30,6 +30,7 @@ class BookPopup extends Component {
     this.findAddress = this.findAddress.bind(this);
     this.handleInterested = this.handleInterested.bind(this);
     this.handleMatch = this.handleMatch.bind(this);
+    this.checkStatus = this.checkStatus.bind(this);
     this.handleUpdateBookInterested = props.handleUpdateBookInterested;
   }
 
@@ -162,6 +163,16 @@ class BookPopup extends Component {
     }
   }
 
+  checkStatus(matchedWith){
+    console.log('match status: ', matchedWith);
+    if(matchedWith.length === 0) return 'Waiting for Response';
+    if(this.user.booksOwned.indexOf(matchedWith[0]) !== -1){
+      return 'Matched';
+    }else{
+      return 'Failed to Match';
+    }
+  }
+
   render() {
     console.log(this.props.type);
     if(this.state.matchList.matchedBooks && this.state.matchList.matchedBooks.length > 0){
@@ -217,7 +228,7 @@ class BookPopup extends Component {
               </CardText>
             </div>
           </div>}
-          {(this.type === 'INTEREST' && this.findBook()) && 
+          {(this.type === 'INTEREST' && this.findBook() && this.checkStatus(this.findBook().matchedWith) === 'Matched') && 
           <div>
             <p>Please Mail Your Book To:</p>
             <p>{this.state.ownerAddress}</p>
