@@ -1,25 +1,9 @@
-function postRequest(postData){
-  var httpReq = new XMLHttpRequest();
-  httpReq.open( "POST", "http://127.0.0.1:8000/book/", true);
-  httpReq.setRequestHeader('content-type', 'application/json');
-  httpReq.onreadystatechange = function(){
-    if (httpReq.readyState == 4) {
-      console.log(httpReq.responseText);
-        if(httpReq.getResponseHeader('content-type')==='application/json'){
-            var result = JSON.parse(httpReq.responseText);	          
-        }
-        chrome.tabs.create({url: "http://127.0.0.1:3000/"}, function(tab) {});
-     
-      }
-    };
-    httpReq.send(JSON.stringify(postData));
-}
 
 chrome.runtime.onInstalled.addListener(function() {
 
 
     chrome.contextMenus.create({
-      title: 'Upload to Second-Hand-Book-Exchange',
+      title: 'Upload to Green Book',
       type: 'normal',
     });
 
@@ -52,9 +36,11 @@ chrome.runtime.onInstalled.addListener(function() {
           }
         };
         xhr.send();
-        
         });
-
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+          var alertWindow = "alert('Your book has been successfully uploaded!')";
+          chrome.tabs.executeScript(tabs[0].id, {code : alertWindow});
+        });
     
   });
 });

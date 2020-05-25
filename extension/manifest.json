@@ -1,8 +1,8 @@
 {
-  "name": "second hand book exchange",
+  "name": "Green Book",
   "version": "1",
-  "description": "An extension for automatic uploading image onto the second hand book exchange site",
-  "icons": {"64": "images/book.jpg"},
+  "description": "An extension for automatic uploading image onto Green Book website",
+  "icons": {"64": "images/book.png"},
   "permissions": ["http://*/*", "https://*/*", "tabs", "activeTab", "storage", "contextMenus"],
   "background": {
     "scripts": ["scripts/background.js"],
@@ -11,12 +11,11 @@
   "content_scripts": [
     {
       "matches": ["https://www.goodreads.com/book/show/*"],
-      "css":["static/buttonStyle.css"],
-      "js": ["scripts/bookSite.js"]
+      "css":["static/buttonStyle.css"]
     }
   ],
   "browser_action": {
-    "default_icon": "images/book.jpg",
+    "default_icon": "images/book.png",
     "default_popup": "static/popup.html"
   },
   "manifest_version": 2

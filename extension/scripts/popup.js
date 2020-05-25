@@ -11,7 +11,10 @@ function login()
         if(httpReq.getResponseHeader('content-type')==='application/json'){
             var result = JSON.parse(httpReq.responseText);
             if(result['password']==password)
+            {
                 chrome.storage.sync.set({uid: result['id']}, function() {});
+                alert('You have successfully logged in as '+username);
+            }
             else
                 alert("Wrong username or password!");	          
         }
