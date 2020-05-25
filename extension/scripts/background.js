@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(function() {
         var formData = new FormData();
         formData.append("name", request.bookTitle);
         formData.append("author", request.bookAuthors);
-        formData.append("category", request.category);
+        formData.append("category", "1");
         formData.append("description", request.description);
         formData.append("owner", uid);
          
