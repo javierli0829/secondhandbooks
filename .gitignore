@@ -27,7 +27,7 @@ backend/*/*/__pycache__
 backend/venv
 backend/env
 .sqlite3
-
+.vscode
 *.pyc
 db.sqlite3
 backend/media/*
