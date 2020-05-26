@@ -8,12 +8,6 @@
     "scripts": ["scripts/background.js"],
     "persistent": true
   },
-  "content_scripts": [
-    {
-      "matches": ["https://www.goodreads.com/book/show/*"],
-      "css":["static/buttonStyle.css"]
-    }
-  ],
   "browser_action": {
     "default_icon": "images/book.png",
     "default_popup": "static/popup.html"
